@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ajinkaya Pratap Bhosale — Full Stack Java Developer</title>
+<meta name="description" content="Portfolio of Ajinkaya Pratap Bhosale, a Full Stack Java Developer building modern, scalable web applications with Java and modern web technologies." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="preloader">
+  <div class="pl-console">
+    <div class="ln" style="animation-delay:.05s"><span class="ok">$</span> mvn clean install</div>
+    <div class="ln" style="animation-delay:.45s">[INFO] Building <span class="amber">ajinkaya-portfolio</span> 2026</div>
+    <div class="ln" style="animation-delay:.85s">[INFO] Compiling Developer.java ...</div>
+    <div class="ln" style="animation-delay:1.25s">[INFO] Loading projects &amp; experience ...</div>
+    <div class="ln" style="animation-delay:1.7s"><span class="ok">[INFO] BUILD SUCCESS &#10003;</span></div>
+    <div class="pl-bar"><i></i></div>
+  </div>
+</div>
+<div class="cursor-dot"></div><div class="cursor-ring"></div>
+<div class="progress-bar" id="progress"></div>
+
+<nav id="nav">
+  <div class="wrap nav-in">
+    <a href="#hero" class="logo" data-cursor><span class="dot"></span>ajinkaya<b>.dev</b></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" data-cursor><span class="n">01</span>About</a></li>
+      <li><a href="#skills" data-cursor><span class="n">02</span>Skills</a></li>
+      <li><a href="#projects" data-cursor><span class="n">03</span>Projects</a></li>
+      <li><a href="#contact" data-cursor><span class="n">04</span>Contact</a></li>
+    </ul>
+    <div class="nav-tools">
+      <button class="theme-toggle" id="themeBtn" data-cursor aria-label="Toggle light / dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+      <button class="burger" id="burger" data-cursor aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<header id="hero">
+  <canvas id="bg-canvas"></canvas>
+  <div class="hero-glow a"></div><div class="hero-glow b"></div>
+  <div class="wrap hero-grid">
+    <div class="hero">
+      <span class="badge"><span class="live"></span> Open to internships &amp; entry-level roles</span>
+      <div class="eyebrow">~/ ajinkaya — portfolio</div>
+      <h1><span class="grad">Ajinkaya</span><br/>Pratap Bhosale</h1>
+      <div class="role-line">&lt;<span class="txt" id="role">Full Stack Java Developer</span>/&gt;<span class="caret">▋</span></div>
+      <p class="lede">Building modern, scalable web applications with Java and modern web technologies — turning ideas into practical, real-world software.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary" data-cursor>View my work
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="assets/Ajinkaya_Pratap_Bhosale_Resume.pdf" download class="btn btn-ghost" data-cursor>Résumé
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 20h14"/></svg></a>
+      </div>
+      <div class="socials">
+        <a href="https://github.com/Ajinkya-X" target="_blank" rel="noopener" data-cursor aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.57.1.78-.25.78-.55v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.7.08-.7 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.75.4-1.27.73-1.56-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.66.79.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg></a>
+        <a href="https://linkedin.com/in/ajinkaya" target="_blank" rel="noopener" data-cursor aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.73v20.53C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.74V1.73C24 .78 23.2 0 22.22 0z"/></svg></a>
+        <a href="https://www.instagram.com/ajinkaya01" target="_blank" rel="noopener" data-cursor aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.2" y="2.2" width="19.6" height="19.6" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor" stroke="none"/></svg></a>
+        <a href="mailto:ajinkaya01@gmail.com" data-cursor aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 6 9 7 9-7"/></svg></a>
+      </div>
+    </div>
+
+    <div class="ide-outer">
+      <div class="ide" id="ide">
+        <div class="ide-head">
+          <span class="ide-dot r"></span><span class="ide-dot y"></span><span class="ide-dot g"></span>
+          <span class="ide-file"><b>Developer.java</b> — src/dev/ajinkaya</span>
+        </div>
+        <div class="ide-body"><code id="code"></code><span class="cursor" id="codeCursor"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="mouse"></div>scroll</div>
+</header>
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow reveal">cd ~/about</div>
+    <h2 class="section-title reveal">Who's behind the <span class="grad">code</span></h2>
+    <div class="about-grid">
+      <div class="about reveal">
+        <p class="about-lead">I'm <b>Ajinkaya Pratap Bhosale</b>, a final-year <b>B.Tech Computer Science</b> student graduating in <b>2026</b>, on a focused path to becoming a <b>Full Stack Java Developer</b>.</p>
+        <p>I love building practical web applications and AI-powered projects — the kind that solve real problems for real people. Right now I'm deepening my command of Core Java, Advanced Java, JDBC, SQL, and end-to-end full-stack development.</p>
+        <p>I care about writing clean, maintainable code and shipping things that actually work. I'm actively looking for internships and entry-level roles where I can contribute to a team and keep growing as an engineer.</p>
+        <ul class="bring">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span><b>Full-stack range</b> — comfortable from HTML/CSS/JS front-ends to Java &amp; SQL back-ends.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span><b>Builder mindset</b> — I learn by shipping real, working projects from idea to deploy.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span><b>Fast, self-driven learner</b> — constantly leveling up my Java and full-stack toolkit.</span></li>
+        </ul>
+      </div>
+      <div class="reveal d1">
+        <div class="stat-grid">
+          <div class="stat"><div class="num" data-count="3">0</div><div class="lbl">Projects built</div></div>
+          <div class="stat"><div class="num" data-count="10" data-suffix="+">0</div><div class="lbl">Technologies</div></div>
+          <div class="stat"><div class="num" data-count="2026">0</div><div class="lbl">Graduating</div></div>
+          <div class="stat"><div class="num">&#8734;</div><div class="lbl">Curiosity</div></div>
+        </div>
+        <h4 style="font-family:var(--font-mono);font-size:.8rem;color:var(--secondary);margin:2.2rem 0 1.1rem;letter-spacing:.03em">// education</h4>
+        <div class="timeline">
+          <div class="tl-item"><div class="yr">2026 — final year</div><h4>B.Tech, Computer Science &amp; Engineering</h4><span>DBATU University</span></div>
+          <div class="tl-item"><div class="yr">2023</div><h4>Diploma in Computer Engineering</h4><span>MSBTE</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow reveal">cd ~/skills</div>
+    <h2 class="section-title reveal">The stack I <span class="grad">build with</span></h2>
+    <p class="section-intro reveal">Grab the sphere and give it a spin — or scan the grouped stack.</p>
+    <div class="skills-wrap">
+      <div id="skill-sphere" class="reveal" aria-label="Interactive 3D cloud of technologies"></div>
+      <div class="skill-cats reveal d1">
+        <div class="skill-cat"><h4>// languages</h4><div class="chips">
+          <span class="chip"><i class="d"></i>Java</span><span class="chip"><i class="d"></i>Python</span>
+          <span class="chip"><i class="d"></i>C</span><span class="chip"><i class="d"></i>SQL</span>
+          <span class="chip"><i class="d"></i>JavaScript</span>
+        </div></div>
+        <div class="skill-cat"><h4>// frontend</h4><div class="chips">
+          <span class="chip tl"><i class="d"></i>HTML5</span><span class="chip tl"><i class="d"></i>CSS3</span>
+          <span class="chip tl"><i class="d"></i>Bootstrap</span><span class="chip tl"><i class="d"></i>Responsive UI</span>
+        </div></div>
+        <div class="skill-cat"><h4>// backend &amp; data</h4><div class="chips">
+          <span class="chip ir"><i class="d"></i>Core Java</span><span class="chip ir"><i class="d"></i>Advanced Java</span>
+          <span class="chip ir"><i class="d"></i>JDBC</span><span class="chip ir"><i class="d"></i>SQL</span><span class="chip ir"><i class="d"></i>Flask</span>
+        </div></div>
+        <div class="skill-cat"><h4>// tools &amp; concepts</h4><div class="chips">
+          <span class="chip"><i class="d"></i>Git</span><span class="chip"><i class="d"></i>GitHub</span>
+          <span class="chip"><i class="d"></i>OOP</span><span class="chip"><i class="d"></i>REST APIs</span>
+        </div></div>
+        <div class="learning"><b>// currently learning</b><br/>Sharpening Core Java, Advanced Java, JDBC, SQL &amp; full-stack development.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="projects">
+  <div class="wrap">
+    <div class="eyebrow reveal">// 03 — cd ~/projects</div>
+    <h2 class="section-title reveal">Things I've <span class="grad">built</span></h2>
+    <p class="section-intro reveal">Ideas I turned into working software — each one taught me something new about shipping end to end.</p>
+
+    <div class="filters reveal" id="filters">
+      <button class="filter active" data-f="all" data-cursor>All</button>
+      <button class="filter" data-f="java" data-cursor>Java</button>
+      <button class="filter" data-f="python" data-cursor>Python</button>
+      <button class="filter" data-f="ai" data-cursor>AI / ML</button>
+    </div>
+
+    <div class="proj-grid" id="projGrid">
+
+      <article class="card tilt" data-tags="java ai" data-cursor>
+        <span class="card-idx">01 / featured</span>
+        <span class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M8.5 14h.01M15.5 14h.01M9 17.5h6"/></svg></span>
+        <h3>AI-Powered Smart Interview Assistant</h3>
+        <p>An AI assistant that helps candidates rehearse interviews — asking role-specific questions, listening to answers, and returning instant, constructive feedback so practice feels like the real thing.</p>
+        <div class="tags"><span>Java</span><span>JavaScript</span><span>Bootstrap</span><span>HTML/CSS</span><span>AI</span></div>
+        <div class="card-links">
+          <a class="soon" data-cursor><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.55v-1.9c-2.8.6-3.4-1.35-3.4-1.35-.45-1.15-1.1-1.45-1.1-1.45-.9-.6.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.5 2.34 1.07 2.9.83.1-.65.35-1.1.63-1.35-2.2-.25-4.55-1.1-4.55-4.9 0-1.1.4-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.4 9.4 0 0 1 5 0c1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.58 1.03 2.68 0 3.81-2.35 4.65-4.57 4.9.36.3.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>Code · soon</a>
+          <button class="js-detail" data-proj="0" data-cursor>Details<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+
+      <article class="card tilt" data-tags="python ai" data-cursor>
+        <span class="card-idx">02 / featured</span>
+        <span class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6v12M7 6v12M10.5 6v12M13.5 6v12M17 6v12M20 6v12"/></svg></span>
+        <h3>Packet Food Ingredient Rating System</h3>
+        <p>Scan a packaged-food barcode and get an instant health rating. The app fetches product data, parses the ingredient list, and translates it into a clear score that helps people make healthier choices at a glance.</p>
+        <div class="tags"><span>Python</span><span>Flask</span><span>OCR</span><span>Barcode / QR</span><span>Open Food Facts API</span></div>
+        <div class="card-links">
+          <a class="soon" data-cursor><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.55v-1.9c-2.8.6-3.4-1.35-3.4-1.35-.45-1.15-1.1-1.45-1.1-1.45-.9-.6.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.5 2.34 1.07 2.9.83.1-.65.35-1.1.63-1.35-2.2-.25-4.55-1.1-4.55-4.9 0-1.1.4-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.4 9.4 0 0 1 5 0c1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.58 1.03 2.68 0 3.81-2.35 4.65-4.57 4.9.36.3.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>Code · soon</a>
+          <button class="js-detail" data-proj="1" data-cursor>Details<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+
+      <article class="card tilt" data-tags="python" data-cursor>
+        <span class="card-idx">03</span>
+        <span class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6h14M5 10h14M5 14h9M5 18h6"/></svg></span>
+        <h3>Extract Text From Image (OCR)</h3>
+        <p>A utility that pulls text straight out of images and converts it into clean, editable digital text using Optical Character Recognition — handy for digitising notes, receipts, and documents.</p>
+        <div class="tags"><span>Python</span><span>OCR</span><span>Image Processing</span></div>
+        <div class="card-links">
+          <a class="soon" data-cursor><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.55v-1.9c-2.8.6-3.4-1.35-3.4-1.35-.45-1.15-1.1-1.45-1.1-1.45-.9-.6.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.5 2.34 1.07 2.9.83.1-.65.35-1.1.63-1.35-2.2-.25-4.55-1.1-4.55-4.9 0-1.1.4-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.4 9.4 0 0 1 5 0c1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.58 1.03 2.68 0 3.81-2.35 4.65-4.57 4.9.36.3.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>Code · soon</a>
+          <button class="js-detail" data-proj="2" data-cursor>Details<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+<section id="certs">
+  <div class="wrap">
+    <div class="eyebrow reveal">// certifications</div>
+    <h2 class="section-title reveal">Credentials &amp; <span class="grad">training</span></h2>
+    <p class="section-intro reveal">Formal coursework that reinforces the fundamentals behind the code.</p>
+    <div class="cert reveal" data-cursor>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 7.5 12 12l9-4.5L12 3Z"/><path d="M3 7.5v5M7 9.5v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4"/></svg></span>
+      <div>
+        <h4>CCNA: Introduction to Networks</h4>
+        <span>Cisco Networking Academy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="eyebrow reveal">// 04 — say hello</div>
+    <h2 class="section-title reveal">Let's build something <span class="grad">together</span></h2>
+    <p class="section-intro reveal">I'm open to internships and entry-level Full Stack Java roles. Have a project in mind or just want to connect? Send a message and I'll get back to you.</p>
+
+    <div class="contact-grid">
+      <form class="contact-form reveal" id="contactForm" novalidate>
+        <div class="form-field">
+          <label for="cName">your name</label>
+          <input type="text" id="cName" name="name" placeholder="Jane Doe" autocomplete="name" data-cursor/>
+          <div class="msg">Please enter your name.</div>
+        </div>
+        <div class="form-field">
+          <label for="cEmail">email</label>
+          <input type="email" id="cEmail" name="email" placeholder="jane@example.com" autocomplete="email" data-cursor/>
+          <div class="msg">Please enter a valid email address.</div>
+        </div>
+        <div class="form-field">
+          <label for="cMsg">message</label>
+          <textarea id="cMsg" name="message" rows="5" placeholder="Tell me about the role, project, or idea…" data-cursor></textarea>
+          <div class="msg">Please write at least 10 characters.</div>
+        </div>
+        <button type="submit" class="btn btn-primary" data-cursor style="width:100%;justify-content:center">
+          Send message
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/></svg>
+        </button>
+      </form>
+
+      <div class="contact-side reveal">
+        <div class="row">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 6 9 7 9-7"/></svg></span>
+          <div><small>email</small><a href="mailto:ajinkaya01@gmail.com" data-cursor>ajinkaya01@gmail.com</a></div>
+          <button type="button" class="copy-btn" id="copyEmail" data-cursor>copy</button>
+        </div>
+        <div class="row">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.55v-1.9c-2.8.6-3.4-1.35-3.4-1.35-.45-1.15-1.1-1.45-1.1-1.45-.9-.6.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.5 2.34 1.07 2.9.83.1-.65.35-1.1.63-1.35-2.2-.25-4.55-1.1-4.55-4.9 0-1.1.4-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.4 9.4 0 0 1 5 0c1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.58 1.03 2.68 0 3.81-2.35 4.65-4.57 4.9.36.3.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></span>
+          <div><small>github</small><a href="https://github.com/Ajinkya-X" target="_blank" rel="noopener" data-cursor>github.com/Ajinkya-X</a></div>
+        </div>
+        <div class="row">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0Z"/></svg></span>
+          <div><small>linkedin</small><a href="https://linkedin.com/in/ajinkaya" target="_blank" rel="noopener" data-cursor>linkedin.com/in/ajinkaya</a></div>
+        </div>
+        <div class="row">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5.5-8 12-8 12s-8-6.5-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+          <div><small>based in</small><span>India · open to remote</span></div>
+        </div>
+        <a href="assets/Ajinkaya_Pratap_Bhosale_Resume.pdf" download class="btn btn-ghost" data-cursor style="width:100%;justify-content:center;margin-top:1.6rem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          Download résumé (PDF)
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#hero" class="logo" data-cursor><span class="dot"></span>ajinkaya<b>.dev</b></a>
+    <p>© 2026 Ajinkaya Pratap Bhosale — Full Stack Java Developer</p>
+    <p class="made">Designed &amp; hand-coded from scratch — single file, no frameworks.</p>
+  </div>
+</footer>
+
+<div class="modal-back" id="modalBack" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="modal-close" id="modalClose" data-cursor aria-label="Close details"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <h3 id="mTitle"></h3>
+    <div class="mrole" id="mRole"></div>
+    <p id="mDesc"></p>
+    <ul id="mHigh"></ul>
+    <div class="tags" id="mTags"></div>
+    <span class="soon" style="font-family:var(--font-mono);font-size:.78rem">// code &amp; live demo coming soon</span>
+  </div>
+</div>
+
+<button id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<div id="toast-wrap"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Syne:wght@700;800&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Unbounded:wght@600;700&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -834,86 +834,65 @@
       </div>
     </section>
 
-    <!-- The footer is the seafloor: the page is a dive, so this is where it
-         bottoms out. Hence the sediment, the kelp, and the way back up. -->
+    <!-- Deliberately short: the page is long, so the last thing on it should be
+         quick to read and easy to act on. -->
     <footer id="footer">
-      <div class="floor" aria-hidden="true">
-        <span class="kelp" style="--kx: 6%;  --kh: 132px; --kd: 7s;   --kdl: -1s"></span>
-        <span class="kelp" style="--kx: 11%; --kh: 88px;  --kd: 5.6s; --kdl: -3s"></span>
-        <span class="kelp" style="--kx: 78%; --kh: 108px; --kd: 6.4s; --kdl: -2s"></span>
-        <span class="kelp" style="--kx: 84%; --kh: 150px; --kd: 8s;   --kdl: -5s"></span>
-        <span class="kelp" style="--kx: 91%; --kh: 74px;  --kd: 5s;   --kdl: -4s"></span>
-        <svg class="floor-svg" viewBox="0 0 1440 170" preserveAspectRatio="none" aria-hidden="true">
-          <path class="dune far" d="M0 96c150-34 268 6 402 18s224-30 356-24 226 44 358 26 196-38 324-46v170H0Z" />
-          <path class="dune near" d="M0 130c168-26 260 14 396 22s244-26 380-18 218 34 340 20 176-26 324-32v148H0Z" />
-        </svg>
-      </div>
+      <div class="seam" aria-hidden="true"></div>
 
-      <div class="wrap f-grid">
-        <div class="f-brand reveal">
+      <div class="wrap f-top">
+        <div class="f-brand">
           <a href="#hero" class="logo" data-cursor aria-label="Back to top"
             ><span class="dot"></span><span class="logo-txt">ajinkaya<b>.dev</b></span></a
           >
           <p class="f-line">
-            Final-year computer science student, building the whole stack in Java — and
-            looking for the first team to build it with.
+            Final-year CS student building the whole stack in Java. Open to 2026 graduate
+            roles — say hello.
           </p>
-          <a class="f-mail" href="mailto:ajinkaya01@gmail.com" data-cursor
-            >ajinkaya01@gmail.com</a
-          >
+          <div class="f-do">
+            <a class="btn btn-primary" href="mailto:ajinkaya01@gmail.com" data-cursor
+              >Email me</a
+            >
+            <a
+              class="btn btn-ghost"
+              href="assets/Ajinkaya_Pratap_Bhosale_Resume.pdf"
+              download
+              data-cursor
+              >Résumé</a
+            >
+          </div>
         </div>
 
-        <nav class="f-col reveal d1" aria-label="Sections">
-          <h4 class="side-cap">Sections</h4>
-          <ul>
-            <li><a href="#about" data-cursor>About</a></li>
-            <li><a href="#skills" data-cursor>Skills</a></li>
-            <li><a href="#projects" data-cursor>Work</a></li>
-            <li><a href="#certs" data-cursor>Certifications</a></li>
-            <li><a href="#contact" data-cursor>Contact</a></li>
-          </ul>
-        </nav>
-
-        <div class="f-col reveal d2">
-          <h4 class="side-cap">Elsewhere</h4>
-          <ul>
-            <li>
-              <a href="https://github.com/Ajinkya-X" target="_blank" rel="noopener" data-cursor
-                >GitHub</a
-              >
-            </li>
-            <li>
-              <a href="https://linkedin.com/in/ajinkaya" target="_blank" rel="noopener" data-cursor
-                >LinkedIn</a
-              >
-            </li>
-            <li>
-              <a href="assets/Ajinkaya_Pratap_Bhosale_Resume.pdf" download data-cursor>Résumé</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="f-col f-status reveal d3">
-          <h4 class="side-cap">Status</h4>
-          <p class="f-avail"><span class="live"></span> Open to 2026 roles</p>
-          <p class="f-reached">
-            You reached <b>6 000&thinsp;m</b><span>Hadal zone &mdash; the bottom</span>
-          </p>
-          <button class="f-up" id="fSurface" data-cursor>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            Return to the surface
-          </button>
+        <div class="f-links">
+          <nav class="f-set" aria-label="Sections">
+            <h4 class="f-cap">Pages</h4>
+            <a href="#about" data-cursor>About</a>
+            <a href="#skills" data-cursor>Skills</a>
+            <a href="#projects" data-cursor>Work</a>
+            <a href="#certs" data-cursor>Certifications</a>
+            <a href="#contact" data-cursor>Contact</a>
+          </nav>
+          <nav class="f-set" aria-label="Profiles">
+            <h4 class="f-cap">Find me</h4>
+            <a href="https://github.com/Ajinkya-X" target="_blank" rel="noopener" data-cursor
+              >GitHub</a
+            >
+            <a href="https://linkedin.com/in/ajinkaya" target="_blank" rel="noopener" data-cursor
+              >LinkedIn</a
+            >
+            <a href="mailto:ajinkaya01@gmail.com" data-cursor>Email</a>
+          </nav>
         </div>
       </div>
 
-      <!-- oversized wordmark, half-buried in the sediment -->
-      <div class="f-mark" aria-hidden="true"><span>AJINKAYA</span></div>
-
       <div class="wrap f-base">
         <span>&copy; 2026 Ajinkaya Pratap Bhosale</span>
-        <span class="f-made">Hand-coded from scratch. No frameworks, no templates, no page builder.</span>
+        <span class="f-made">Hand-coded — no frameworks, no templates.</span>
+        <button class="f-up" id="fSurface" data-cursor>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Top
+        </button>
       </div>
     </footer>
 

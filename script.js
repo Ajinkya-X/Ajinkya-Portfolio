@@ -10,6 +10,19 @@
   setTimeout(hidePre, 3500); // safety net
   function hidePre(){ const p=$("#preloader"); if(p) p.classList.add("done"); }
 
+  /* Depth counter on the preloader: runs down to the sea floor while the page
+     loads, so the wait reads as a descent instead of a spinner. */
+  (function plDepth(){
+    const el=$("#plDepth"); if(!el) return;
+    if(reduce){ el.textContent="6 000"; return; }
+    const t0=performance.now(), dur=1800;
+    (function step(now){
+      const p=Math.min((now-t0)/dur,1), e=1-Math.pow(1-p,2);
+      el.textContent=Math.round(e*6000).toLocaleString("en-US").replace(",", " ");
+      if(p<1) requestAnimationFrame(step);
+    })(t0);
+  })();
+
   /* ---------------- THEME ---------------- */
   const root = document.documentElement, themeBtn = $("#themeBtn");
   const setTheme = t => t==="light" ? root.setAttribute("data-theme","light") : root.removeAttribute("data-theme");
@@ -29,6 +42,19 @@
     const H="a,button,input,textarea,[data-cursor],.card,.chip,.filter";
     document.addEventListener("mouseover", e => { if(ring && e.target.closest(H)) ring.classList.add("hover"); });
     document.addEventListener("mouseout",  e => { if(ring && e.target.closest(H)) ring.classList.remove("hover"); });
+  }
+
+  /* ---------------- RIPPLE ----------------
+     Pointer-down drops a ring that expands and fades, the way a touch on
+     still water behaves. Cheap: one element, removed when it finishes.   */
+  if(!reduce){
+    addEventListener("pointerdown", e => {
+      const r=document.createElement("span");
+      r.className="ripple";
+      r.style.left=e.clientX+"px"; r.style.top=e.clientY+"px";
+      document.body.appendChild(r);
+      setTimeout(() => r.remove(), 800);
+    }, {passive:true});
   }
 
   /* ---------------- NAV / SCROLL ---------------- */
@@ -59,6 +85,25 @@
   // fonts land after first paint and change link widths, so re-measure
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(moveIndicator);
 
+  /* ---------------- DEPTH (the dive) ----------------
+     Scroll position becomes depth: --depth goes 0 -> 1 on the root element,
+     so CSS can darken the water, and the gauge reports real metres and the
+     actual oceanographic zone you are passing through.                     */
+  const drRead=$("#drRead"), drZone=$("#drZone"), sounderRead=$("#sounderRead");
+  const ZONES=[[.24,"Sunlight"],[.48,"Twilight"],[.72,"Midnight"],[.93,"Abyss"],[1.01,"Hadal"]];
+  const FLOOR=6000;                       // metres at the bottom of the page
+  let zoneNow="";
+  function setDepth(p){
+    root.style.setProperty("--depth", p.toFixed(4));
+    const m=Math.round(p*FLOOR/10)*10;
+    const txt=m.toLocaleString("en-US").replace(",", " ");
+    if(drRead) drRead.textContent=txt;
+    if(sounderRead) sounderRead.textContent=txt;
+    let z=ZONES[ZONES.length-1][1];
+    for(const [lim,name] of ZONES){ if(p<lim){ z=name; break; } }
+    if(z!==zoneNow && drZone){ zoneNow=z; drZone.textContent=z; drZone.classList.remove("flip");
+      void drZone.offsetWidth; drZone.classList.add("flip"); }
+  }
   let lastY=scrollY;
   function onScroll(){
     const h=document.documentElement, y=scrollY;
@@ -71,6 +116,8 @@
       if(!menuOpen && y>260 && y>lastY+6)      nav.classList.add("nav-hidden");
       else if(menuOpen || y<lastY-6 || y<=260) nav.classList.remove("nav-hidden");
     }
+    const max=h.scrollHeight-h.clientHeight;
+    setDepth(max>0 ? Math.min(Math.max(y/max,0),1) : 0);
     if(toTop) toTop.classList.toggle("show", y>560);
     let cur=""; const pos=y+innerHeight*0.35;
     sections.forEach(s => { if(s.offsetTop<=pos) cur=s.id; });
@@ -134,7 +181,7 @@
 
   /* ---------------- ROTATING ROLE ---------------- */
   const roleEl=$("#role");
-  const roles=["Full Stack Java Developer","Backend Developer","Problem Solver","Lifelong Learner"];
+  const roles=["Full stack Java developer","Java \u00b7 SQL \u00b7 JavaScript","Graduating 2026"];
   if(roleEl && !reduce){
     let ri=0,ci=0,del=false; roleEl.textContent="";
     (function type(){
@@ -147,45 +194,9 @@
     })();
   }
 
-  /* ---------------- TYPED CODE (Developer.java) ---------------- */
-  const codeEl=$("#code"), codeCur=$("#codeCursor");
-  const toks=[
-    ["package","k"],[" dev.ajinkaya;\n\n",""],
-    ["public class ","k"],["Developer","t"],[" {\n    ",""],
-    ["String","t"],[" name = ",""],["\"Ajinkaya Pratap Bhosale\"","s"],[";\n    ",""],
-    ["String","t"],["[] stack = { ",""],
-      ["\"Java\"","s"],[", ",""],["\"SQL\"","s"],[", ",""],["\"JavaScript\"","s"],[", ",""],["\"Python\"","s"],[" };\n    ",""],
-    ["boolean","t"],[" openToWork = ",""],["true","k"],[";\n\n    ",""],
-    ["public ","k"],["String","t"],[" ",""],["build","m"],["() {\n        ",""],
-    ["return","k"],[" ",""],["\"clean, scalable software\"","s"],[";\n    }\n}",""]
-  ];
-  const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-  const codeLen=toks.reduce((n,t)=>n+t[0].length,0);
-  function renderCode(n){
-    let out="",used=0;
-    for(const [txt,cls] of toks){
-      if(used>=n) break;
-      const seg=esc(txt.slice(0,Math.min(txt.length,n-used)));
-      out += cls ? '<span class="'+cls+'">'+seg+'</span>' : seg;
-      used += Math.min(txt.length,n-used);
-    }
-    if(codeEl) codeEl.innerHTML=out;
-  }
-  function typeCode(){
-    if(!codeEl) return;
-    if(reduce){ renderCode(codeLen); if(codeCur) codeCur.style.display="none"; return; }
-    let c=0;
-    (function tick(){ renderCode(++c); if(c<codeLen) setTimeout(tick, 20+Math.random()*24); else if(codeCur) codeCur.style.display="none"; })();
-  }
-  const ide=$("#ide");
-  if(ide && "IntersectionObserver" in window){
-    const io3=new IntersectionObserver((ents)=>ents.forEach(en=>{ if(en.isIntersecting){ setTimeout(typeCode,650); io3.unobserve(en.target);} }), {threshold:.3});
-    io3.observe(ide);
-  } else setTimeout(typeCode, 900);
-
-  /* ---------------- 3D TILT (cards + IDE) ---------------- */
+  /* ---------------- 3D TILT (cards) ---------------- */
   if(!isTouch && !reduce){
-    $$(".tilt, #ide").forEach(el => {
+    $$(".tilt").forEach(el => {
       el.addEventListener("mousemove", e => {
         const r=el.getBoundingClientRect();
         const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
@@ -212,18 +223,18 @@
   /* ---------------- PROJECT DETAIL MODAL ---------------- */
   const projects=[
     { title:"AI-Powered Smart Interview Assistant",
-      role:"// Java · AI · full-stack",
-      desc:"An interactive assistant that helps candidates rehearse for interviews. It generates role-specific questions, captures answers, and returns instant, constructive feedback so practice sessions feel realistic and actually build confidence.",
-      highlights:["Dynamic, role-aware question generation","Instant feedback loop on each answer","Clean, responsive UI built with Bootstrap","Java-driven logic on the back end"],
+      role:"Java \u00b7 JavaScript \u00b7 full stack",
+      desc:"Interview practice that pushes back. You pick a role, it asks questions for that role, takes your answer and returns specific feedback rather than a score. The point was to make a rehearsal cost something, because the ones that feel easy do not prepare you.",
+      highlights:["Questions adapt to the role you choose","Feedback on every answer, not a final score","Java driving the logic underneath","Responsive Bootstrap interface on top"],
       tags:["Java","JavaScript","Bootstrap","HTML/CSS","AI"] },
     { title:"Packet Food Ingredient Rating System",
-      role:"// Python · Flask · computer vision",
-      desc:"Scan a packaged-food barcode and get an instant health rating. The app pulls product data from the Open Food Facts API, parses the ingredient list, and turns it into a clear score that helps people make healthier choices in seconds.",
+      role:"Web app \u00b7 OCR \u00b7 public API",
+      desc:"Point it at a barcode and it tells you what you are about to eat. It looks the product up through the Open Food Facts API, reads the ingredient list, and turns that wall of chemical names into one number you can decide on while standing in the aisle.",
       highlights:["Barcode / QR scanning with OCR","Live product lookup via Open Food Facts API","Ingredient parsing into a readable health score","Flask back end serving a lightweight web UI"],
       tags:["Python","Flask","OCR","Barcode / QR","Open Food Facts API"] },
     { title:"Extract Text From Image (OCR)",
-      role:"// Python · OCR",
-      desc:"A focused utility that pulls text straight out of images and converts it into clean, editable digital text using Optical Character Recognition — handy for digitising notes, receipts, and printed documents.",
+      role:"Utility \u00b7 OCR",
+      desc:"A small tool that lifts text off an image and hands it back as something you can edit. I built it after retyping the same page of handwritten notes twice, which was exactly one time too many.",
       highlights:["Optical Character Recognition pipeline","Handles varied image sources","Outputs clean, copy-ready text"],
       tags:["Python","OCR","Image Processing"] }
   ];
@@ -292,7 +303,7 @@
   /* ---------------- SKILL SPHERE (3D tag cloud) ---------------- */
   const sphere=$("#skill-sphere");
   if(sphere){
-    const tags=["Java","Core Java","Advanced Java","JavaScript","HTML5","CSS3","Bootstrap","SQL","JDBC","Python","Flask","Git","GitHub","OOP","REST APIs","C","Responsive UI"];
+    const tags=["Java","Core Java","Advanced Java","JavaScript","HTML5","CSS3","Bootstrap","SQL","JDBC","REST APIs","OOP","Git","GitHub","C","Responsive UI"];
     const N=tags.length;
     const pts=tags.map((t,i)=>{
       const span=document.createElement("span");
@@ -329,93 +340,119 @@
     });
   }
 
-  /* ---------------- THREE.JS HERO PARTICLES ---------------- */
-  (function initThree(){
+  /* ---------------- MARINE SNOW (hero) ----------------
+     Not a constellation: marine snow. Particles sink slowly, sway on a slow
+     current, and part around the pointer as if it displaced the water. If
+     WebGL is unavailable the CSS water layers still carry the hero, so this
+     failing is a downgrade rather than an empty screen.                    */
+  (function initSnow(){
     const canvas=$("#bg-canvas");
     if(!canvas || typeof THREE==="undefined" || reduce) return;
-    let renderer, scene, camera, points, lines, raf=null, W, H;
-    const COUNT = innerWidth<720 ? 70 : 130;
-    const nodes=[];
+    let renderer, scene, camera, points, raf=null, W=0, H=0;
+    const COUNT = innerWidth<720 ? 90 : 190;
+    const SPREAD_X=120, SPREAD_Y=90, SPREAD_Z=70;
+
     try{
       renderer=new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
     }catch(e){ return; }
     renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
     scene=new THREE.Scene();
     camera=new THREE.PerspectiveCamera(70, 1, 0.1, 1000);
     camera.position.z=60;
 
-    const SPREAD=90;
-    const posArr=new Float32Array(COUNT*3);
+    const pos=new Float32Array(COUNT*3);
+    const grit=[];                                  // per-particle drift state
     for(let i=0;i<COUNT;i++){
-      const v={ x:(Math.random()-0.5)*SPREAD, y:(Math.random()-0.5)*SPREAD*0.7, z:(Math.random()-0.5)*SPREAD,
-                vx:(Math.random()-0.5)*0.05, vy:(Math.random()-0.5)*0.05, vz:(Math.random()-0.5)*0.05 };
-      nodes.push(v);
-      posArr[i*3]=v.x; posArr[i*3+1]=v.y; posArr[i*3+2]=v.z;
+      const p={
+        x:(Math.random()-0.5)*SPREAD_X,
+        y:(Math.random()-0.5)*SPREAD_Y,
+        z:(Math.random()-0.5)*SPREAD_Z,
+        fall:0.045+Math.random()*0.075,             // sink rate
+        seed:Math.random()*Math.PI*2,               // sway phase
+        amp:0.10+Math.random()*0.26,                // sway width
+        px:0, py:0                                  // displacement from pointer
+      };
+      grit.push(p);
+      pos[i*3]=p.x; pos[i*3+1]=p.y; pos[i*3+2]=p.z;
     }
-    const pGeo=new THREE.BufferGeometry();
-    pGeo.setAttribute("position", new THREE.BufferAttribute(posArr,3));
-    const pMat=new THREE.PointsMaterial({ color:0xFF9E2C, size:1.1, transparent:true, opacity:0.9, sizeAttenuation:true });
-    points=new THREE.Points(pGeo, pMat);
+
+    const geo=new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(pos,3));
+    const mat=new THREE.PointsMaterial({
+      color:0xBFF7F0, size:0.95, transparent:true, opacity:0.55,
+      sizeAttenuation:true, depthWrite:false,
+      blending:THREE.AdditiveBlending
+    });
+    points=new THREE.Points(geo, mat);
     scene.add(points);
 
-    // connecting lines
-    const MAXSEG=COUNT*6;
-    const linePos=new Float32Array(MAXSEG*3);
-    const lGeo=new THREE.BufferGeometry();
-    lGeo.setAttribute("position", new THREE.BufferAttribute(linePos,3));
-    const lMat=new THREE.LineBasicMaterial({ color:0x37E0C6, transparent:true, opacity:0.16 });
-    lines=new THREE.LineSegments(lGeo, lMat);
-    scene.add(lines);
+    /* pointer, in normalised device coords */
+    let ndcX=0, ndcY=0, havePointer=false;
+    if(!isTouch){
+      addEventListener("pointermove", e => {
+        ndcX=(e.clientX/innerWidth)*2-1;
+        ndcY=-((e.clientY/innerHeight)*2-1);
+        havePointer=true;
+      }, {passive:true});
+    }
 
-    let mouseX=0, mouseY=0;
-    addEventListener("mousemove", e => { mouseX=(e.clientX/innerWidth-0.5); mouseY=(e.clientY/innerHeight-0.5); }, {passive:true});
-
-    function resize(){
-      const hero=canvas.parentElement;
-      W=hero.clientWidth; H=hero.clientHeight;
+    function size(){
+      const r=canvas.getBoundingClientRect();
+      W=r.width||innerWidth; H=r.height||innerHeight;
       renderer.setSize(W,H,false);
       camera.aspect=W/H; camera.updateProjectionMatrix();
     }
-    resize(); addEventListener("resize", resize);
+    size();
+    addEventListener("resize", size);
 
-    const DIST=22, DIST2=DIST*DIST;
-    function animate(){
-      const pa=pGeo.attributes.position.array;
+    /* world-space half-extents at the particle plane, so pointer repulsion
+       lines up with what is actually on screen at any aspect ratio */
+    const halfH = Math.tan((70*Math.PI/180)/2) * 60;
+
+    const PUSH_R=14, PUSH=2.6;
+    let t=0;
+    function frame(){
+      t+=0.006;
+      const mx=ndcX*halfH*(W/H||1), my=ndcY*halfH;
+
       for(let i=0;i<COUNT;i++){
-        const n=nodes[i];
-        n.x+=n.vx; n.y+=n.vy; n.z+=n.vz;
-        if(n.x> SPREAD/2||n.x<-SPREAD/2) n.vx*=-1;
-        if(n.y> SPREAD*0.35||n.y<-SPREAD*0.35) n.vy*=-1;
-        if(n.z> SPREAD/2||n.z<-SPREAD/2) n.vz*=-1;
-        pa[i*3]=n.x; pa[i*3+1]=n.y; pa[i*3+2]=n.z;
-      }
-      pGeo.attributes.position.needsUpdate=true;
+        const p=grit[i];
+        p.y -= p.fall;                                        // sink
+        if(p.y < -SPREAD_Y/2){ p.y = SPREAD_Y/2; p.x=(Math.random()-0.5)*SPREAD_X; }
+        const sway = Math.sin(t*1.6 + p.seed) * p.amp;        // slow current
 
-      let s=0;
-      for(let i=0;i<COUNT && s<MAXSEG-2;i++){
-        for(let j=i+1;j<COUNT && s<MAXSEG-2;j++){
-          const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y, dz=nodes[i].z-nodes[j].z;
-          if(dx*dx+dy*dy+dz*dz < DIST2){
-            linePos[s*3]=nodes[i].x; linePos[s*3+1]=nodes[i].y; linePos[s*3+2]=nodes[i].z; s++;
-            linePos[s*3]=nodes[j].x; linePos[s*3+1]=nodes[j].y; linePos[s*3+2]=nodes[j].z; s++;
+        // pointer displaces the water; particles ease back once it leaves
+        let tx=0, ty=0;
+        if(havePointer){
+          const dx=(p.x+sway)-mx, dy=p.y-my;
+          const d2=dx*dx+dy*dy;
+          if(d2 < PUSH_R*PUSH_R && d2 > 0.0001){
+            const d=Math.sqrt(d2), f=(1-d/PUSH_R)*PUSH;
+            tx=(dx/d)*f; ty=(dy/d)*f;
           }
         }
-      }
-      lGeo.setDrawRange(0,s);
-      lGeo.attributes.position.needsUpdate=true;
+        p.px += (tx-p.px)*0.06;
+        p.py += (ty-p.py)*0.06;
 
-      const tgtY=mouseX*0.5, tgtX=mouseY*0.3;
-      points.rotation.y += (tgtY-points.rotation.y)*0.03 + 0.0009;
-      points.rotation.x += (tgtX-points.rotation.x)*0.03;
-      lines.rotation.copy(points.rotation);
+        pos[i*3]   = p.x + sway + p.px;
+        pos[i*3+1] = p.y + p.py;
+        pos[i*3+2] = p.z;
+      }
+      geo.attributes.position.needsUpdate=true;
+
+      // the whole field drifts a touch with the pointer, like a slow current
+      points.rotation.y += ((ndcX*0.12)-points.rotation.y)*0.02;
+      points.rotation.x += ((ndcY*0.06)-points.rotation.x)*0.02;
 
       renderer.render(scene,camera);
-      raf=requestAnimationFrame(animate);
+      raf=requestAnimationFrame(frame);
     }
-    animate();
+    frame();
+
     document.addEventListener("visibilitychange", () => {
       if(document.hidden){ if(raf) cancelAnimationFrame(raf); raf=null; }
-      else if(!raf) animate();
+      else if(!raf) frame();
     });
   })();
 

@@ -6,36 +6,24 @@
     <title>Ajinkaya Pratap Bhosale — Full Stack Java Developer</title>
     <meta
       name="description"
-      content="Portfolio of Ajinkaya Pratap Bhosale, a Full Stack Java Developer building modern, scalable web applications with Java and modern web technologies."
+      content="Ajinkaya Pratap Bhosale — final-year computer science student and full stack Java developer. Java and SQL underneath, responsive interfaces on top."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div id="preloader">
-      <div class="pl-console">
-        <div class="ln" style="animation-delay: 0.05s">
-          <span class="ok">$</span> mvn clean install
-        </div>
-        <div class="ln" style="animation-delay: 0.45s">
-          [INFO] Building <span class="amber">ajinkaya-portfolio</span> 2026
-        </div>
-        <div class="ln" style="animation-delay: 0.85s">
-          [INFO] Compiling Developer.java ...
-        </div>
-        <div class="ln" style="animation-delay: 1.25s">
-          [INFO] Loading projects &amp; experience ...
-        </div>
-        <div class="ln" style="animation-delay: 1.7s">
-          <span class="ok">[INFO] BUILD SUCCESS &#10003;</span>
-        </div>
-        <div class="pl-bar"><i></i></div>
+      <div class="pl-dive">
+        <span class="pl-ping"></span><span class="pl-ping d2"></span>
+        <span class="pl-num"><b id="plDepth">0</b>m</span>
       </div>
+      <div class="pl-cap">Descending</div>
+      <div class="pl-bar"><i></i></div>
     </div>
     <div class="cursor-dot"></div>
     <div class="cursor-ring"></div>
@@ -74,29 +62,49 @@
         </div>
       </div>
     </nav>
-    <header id="hero">
+
+    <!-- The water column. Fixed behind everything; its layers fade in and out
+         against --depth, which JS drives from scroll position. -->
+    <div class="water" aria-hidden="true">
+      <span class="w-rays"></span>
+      <span class="w-caustic"></span>
+      <span class="w-deep"></span>
+      <!-- marine snow: moved out of #hero so the drift carries the whole page,
+           not just the first screen -->
       <canvas id="bg-canvas"></canvas>
+    </div>
+
+    <!-- Depth gauge. Reports real scroll progress in metres, and names the
+         ocean zone you are currently in. Desktop only. -->
+    <div class="depth-rail" id="depthRail" aria-hidden="true">
+      <span class="dr-cap">Depth</span>
+      <span class="dr-track"><span class="dr-mark" id="drMark"></span></span>
+      <span class="dr-read"><b id="drRead">0</b>m</span>
+      <span class="dr-zone" id="drZone">Sunlight</span>
+    </div>
+
+    <header id="hero">
       <div class="hero-glow a"></div>
       <div class="hero-glow b"></div>
       <div class="wrap hero-grid">
         <div class="hero">
           <span class="badge"
-            ><span class="live"></span> Open to internships &amp; entry-level
-            roles</span
+            ><span class="live"></span> Available for 2026 internships and graduate roles</span
           >
-          <div class="eyebrow">~/ ajinkaya — portfolio</div>
+          <div class="eyebrow">Full stack Java developer</div>
           <h1><span class="grad">Ajinkaya</span><br />Pratap Bhosale</h1>
           <div class="role-line">
-            &lt;<span class="txt" id="role">Full Stack Java Developer</span
-            >/&gt;<span class="caret">▋</span>
+            <span class="txt" id="role">Full stack Java developer</span
+            ><span class="caret"></span>
           </div>
           <p class="lede">
-            Building modern, scalable web applications with Java and modern web
-            technologies — turning ideas into practical, real-world software.
+            Final-year computer science student who builds web applications end
+            to end — Java and SQL underneath, clean responsive interfaces on
+            top. I learn by shipping, not by collecting tutorials.
           </p>
           <div class="hero-cta">
             <a href="#projects" class="btn btn-primary" data-cursor
-              >View my work
+              >See what I built
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -178,19 +186,52 @@
           </div>
         </div>
 
-        <div class="ide-outer">
-          <div class="ide" id="ide">
-            <div class="ide-head">
-              <span class="ide-dot r"></span><span class="ide-dot y"></span
-              ><span class="ide-dot g"></span>
-              <span class="ide-file"
-                ><b>Developer.java</b> — src/dev/ajinkaya</span
-              >
+        <div class="sounder-outer">
+          <!-- A full stack really is a depth profile: the interface sits at the
+               surface, the data sits on the bottom. Zone names and depths are
+               the actual oceanographic ones. A sonar line sweeps down and each
+               layer answers as it passes. -->
+          <div class="sounder tilt" id="sounder">
+            <div class="sounder-head">
+              <span class="s-cap">Depth profile</span>
+              <span class="s-read"><b id="sounderRead">0</b>m</span>
             </div>
-            <div class="ide-body">
-              <code id="code"></code
-              ><span class="cursor" id="codeCursor"></span>
+            <div class="sounder-body">
+              <span class="sweep"></span>
+              <ul class="layers">
+                <li class="layer" style="--i: 0">
+                  <span class="l-depth">0 m</span>
+                  <span class="l-ping"></span>
+                  <span class="l-zone">Sunlight</span>
+                  <span class="l-tech">HTML5 &middot; CSS3 &middot; Bootstrap</span>
+                </li>
+                <li class="layer" style="--i: 1">
+                  <span class="l-depth">200 m</span>
+                  <span class="l-ping"></span>
+                  <span class="l-zone">Twilight</span>
+                  <span class="l-tech">JavaScript &middot; responsive UI</span>
+                </li>
+                <li class="layer" style="--i: 2">
+                  <span class="l-depth">1 000 m</span>
+                  <span class="l-ping"></span>
+                  <span class="l-zone">Midnight</span>
+                  <span class="l-tech">Java &middot; OOP</span>
+                </li>
+                <li class="layer" style="--i: 3">
+                  <span class="l-depth">4 000 m</span>
+                  <span class="l-ping"></span>
+                  <span class="l-zone">Abyss</span>
+                  <span class="l-tech">JDBC &middot; REST APIs</span>
+                </li>
+                <li class="layer" style="--i: 4">
+                  <span class="l-depth">6 000 m</span>
+                  <span class="l-ping"></span>
+                  <span class="l-zone">Hadal</span>
+                  <span class="l-tech">SQL &middot; schema design</span>
+                </li>
+              </ul>
             </div>
+            <div class="sounder-foot">Front end at the surface, data on the floor</div>
           </div>
         </div>
       </div>
@@ -201,29 +242,29 @@
     </header>
     <section id="about">
       <div class="wrap">
-        <div class="eyebrow reveal">cd ~/about</div>
+        <div class="eyebrow reveal">About</div>
         <h2 class="section-title reveal">
-          Who's behind the <span class="grad">code</span>
+          Still a student.<br />Already <span class="grad">building</span>
         </h2>
         <div class="about-grid">
           <div class="about reveal">
             <p class="about-lead">
-              I'm <b>Ajinkaya Pratap Bhosale</b>, a final-year
-              <b>B.Tech Computer Science</b> student graduating in <b>2026</b>,
-              on a focused path to becoming a <b>Full Stack Java Developer</b>.
-            </p>
+            I'm <b>Ajinkaya Pratap Bhosale</b> — final year of a
+            <b>B.Tech in Computer Science</b>, graduating <b>2026</b>, working
+            toward one specific thing: being a <b>full stack Java developer</b>
+            who can carry a feature from database to browser.
+          </p>
             <p>
-              I love building practical web applications and AI-powered projects
-              — the kind that solve real problems for real people. Right now I'm
-              deepening my command of Core Java, Advanced Java, JDBC, SQL, and
-              end-to-end full-stack development.
-            </p>
+            My time goes into Core and Advanced Java, JDBC and SQL on one side,
+            and JavaScript and responsive layouts on the other. The interesting
+            part is where they meet — how a query turns into something a person
+            can actually use.
+          </p>
             <p>
-              I care about writing clean, maintainable code and shipping things
-              that actually work. I'm actively looking for internships and
-              entry-level roles where I can contribute to a team and keep
-              growing as an engineer.
-            </p>
+            Everything here I built myself, mostly by getting it wrong first.
+            I'm looking for an internship or graduate role on a team that
+            reviews code properly and will tell me when mine needs work.
+          </p>
             <ul class="bring">
               <li>
                 <svg
@@ -234,8 +275,7 @@
                 >
                   <path d="m5 13 4 4L19 7" /></svg
                 ><span
-                  ><b>Full-stack range</b> — comfortable from HTML/CSS/JS
-                  front-ends to Java &amp; SQL back-ends.</span
+                  ><b>Both ends</b> — Java and SQL at the bottom, HTML, CSS and JavaScript at the top, and no dread about either.</span
                 >
               </li>
               <li>
@@ -247,8 +287,7 @@
                 >
                   <path d="m5 13 4 4L19 7" /></svg
                 ><span
-                  ><b>Builder mindset</b> — I learn by shipping real, working
-                  projects from idea to deploy.</span
+                  ><b>Finishes things</b> — three projects taken from idea to something that runs, not three abandoned repos.</span
                 >
               </li>
               <li>
@@ -260,8 +299,7 @@
                 >
                   <path d="m5 13 4 4L19 7" /></svg
                 ><span
-                  ><b>Fast, self-driven learner</b> — constantly leveling up my
-                  Java and full-stack toolkit.</span
+                  ><b>Picks things up fast</b> — self-taught most of this stack, and I ask better questions than I used to.</span
                 >
               </li>
             </ul>
@@ -270,32 +308,22 @@
             <div class="stat-grid">
               <div class="stat">
                 <div class="num" data-count="3">0</div>
-                <div class="lbl">Projects built</div>
+                <div class="lbl">Projects shipped</div>
               </div>
               <div class="stat">
-                <div class="num" data-count="10" data-suffix="+">0</div>
-                <div class="lbl">Technologies</div>
+                <div class="num" data-count="12" data-suffix="+">0</div>
+              <div class="lbl">Technologies used</div>
               </div>
               <div class="stat">
                 <div class="num" data-count="2026">0</div>
                 <div class="lbl">Graduating</div>
               </div>
               <div class="stat">
-                <div class="num">&#8734;</div>
-                <div class="lbl">Curiosity</div>
+                <div class="num" data-count="1">0</div>
+              <div class="lbl">Certification</div>
               </div>
             </div>
-            <h4
-              style="
-                font-family: var(--font-mono);
-                font-size: 0.8rem;
-                color: var(--secondary);
-                margin: 2.2rem 0 1.1rem;
-                letter-spacing: 0.03em;
-              "
-            >
-              // education
-            </h4>
+            <h4 class="side-cap">Education</h4>
             <div class="timeline">
               <div class="tl-item">
                 <div class="yr">2026 — final year</div>
@@ -314,12 +342,12 @@
     </section>
     <section id="skills">
       <div class="wrap">
-        <div class="eyebrow reveal">cd ~/skills</div>
+        <div class="eyebrow reveal">Stack</div>
         <h2 class="section-title reveal">
-          The stack I <span class="grad">build with</span>
+          A stack, <span class="grad">top to bottom</span>
         </h2>
         <p class="section-intro reveal">
-          Grab the sphere and give it a spin — or scan the grouped stack.
+          Drag the cluster to turn it. Or read the layers — surface work first, data last.
         </p>
         <div class="skills-wrap">
           <div
@@ -329,17 +357,16 @@
           ></div>
           <div class="skill-cats reveal d1">
             <div class="skill-cat">
-              <h4>// languages</h4>
+              <h4>Languages</h4>
               <div class="chips">
                 <span class="chip"><i class="d"></i>Java</span
-                ><span class="chip"><i class="d"></i>Python</span>
-                <span class="chip"><i class="d"></i>C</span
                 ><span class="chip"><i class="d"></i>SQL</span>
-                <span class="chip"><i class="d"></i>JavaScript</span>
+                <span class="chip"><i class="d"></i>JavaScript</span
+                ><span class="chip"><i class="d"></i>C</span>
               </div>
             </div>
             <div class="skill-cat">
-              <h4>// frontend</h4>
+              <h4>Surface &mdash; front end</h4>
               <div class="chips">
                 <span class="chip tl"><i class="d"></i>HTML5</span
                 ><span class="chip tl"><i class="d"></i>CSS3</span>
@@ -348,27 +375,26 @@
               </div>
             </div>
             <div class="skill-cat">
-              <h4>// backend &amp; data</h4>
+              <h4>Depth &mdash; back end and data</h4>
               <div class="chips">
                 <span class="chip ir"><i class="d"></i>Core Java</span
                 ><span class="chip ir"><i class="d"></i>Advanced Java</span>
                 <span class="chip ir"><i class="d"></i>JDBC</span
                 ><span class="chip ir"><i class="d"></i>SQL</span
-                ><span class="chip ir"><i class="d"></i>Flask</span>
+                ><span class="chip ir"><i class="d"></i>REST APIs</span>
               </div>
             </div>
             <div class="skill-cat">
-              <h4>// tools &amp; concepts</h4>
+              <h4>Instruments &mdash; tools and practice</h4>
               <div class="chips">
                 <span class="chip"><i class="d"></i>Git</span
                 ><span class="chip"><i class="d"></i>GitHub</span>
                 <span class="chip"><i class="d"></i>OOP</span
-                ><span class="chip"><i class="d"></i>REST APIs</span>
+                ><span class="chip"><i class="d"></i>Debugging</span>
               </div>
             </div>
             <div class="learning">
-              <b>// currently learning</b><br />Sharpening Core Java, Advanced
-              Java, JDBC, SQL &amp; full-stack development.
+              <b>Currently on the bench</b><br />Advanced Java and JDBC in depth, plus getting genuinely comfortable with SQL beyond simple joins.
             </div>
           </div>
         </div>
@@ -376,24 +402,23 @@
     </section>
     <section id="projects">
       <div class="wrap">
-        <div class="eyebrow reveal">// 03 — cd ~/projects</div>
+        <div class="eyebrow reveal">Work</div>
         <h2 class="section-title reveal">
-          Things I've <span class="grad">built</span>
+          Three things I <span class="grad">shipped</span>
         </h2>
         <p class="section-intro reveal">
-          Ideas I turned into working software — each one taught me something
-          new about shipping end to end.
+          Small in scope, finished in practice. Each one taught me something the next one needed.
         </p>
 
         <div class="filters reveal" id="filters">
           <button class="filter active" data-f="all" data-cursor>All</button>
           <button class="filter" data-f="java" data-cursor>Java</button>
-          <button class="filter" data-f="python" data-cursor>Python</button>
-          <button class="filter" data-f="ai" data-cursor>AI / ML</button>
+          <button class="filter" data-f="web" data-cursor>Web app</button>
+          <button class="filter" data-f="ai" data-cursor>AI</button>
         </div>
 
         <div class="proj-grid" id="projGrid">
-          <article class="card tilt" data-tags="java ai" data-cursor>
+          <article class="card tilt" data-tags="java web ai" data-cursor>
             <span class="card-idx">01 / featured</span>
             <span class="card-ico"
               ><svg
@@ -409,10 +434,7 @@
             ></span>
             <h3>AI-Powered Smart Interview Assistant</h3>
             <p>
-              An AI assistant that helps candidates rehearse interviews — asking
-              role-specific questions, listening to answers, and returning
-              instant, constructive feedback so practice feels like the real
-              thing.
+              Interview practice that pushes back. It asks questions for the role you pick, takes your answer, and returns specific feedback instead of a score — so a rehearsal actually costs you something.
             </p>
             <div class="tags">
               <span>Java</span><span>JavaScript</span><span>Bootstrap</span
@@ -441,7 +463,7 @@
             </div>
           </article>
 
-          <article class="card tilt" data-tags="python ai" data-cursor>
+          <article class="card tilt" data-tags="web ai" data-cursor>
             <span class="card-idx">02 / featured</span>
             <span class="card-ico"
               ><svg
@@ -458,10 +480,7 @@
             ></span>
             <h3>Packet Food Ingredient Rating System</h3>
             <p>
-              Scan a packaged-food barcode and get an instant health rating. The
-              app fetches product data, parses the ingredient list, and
-              translates it into a clear score that helps people make healthier
-              choices at a glance.
+              Point it at a barcode and it tells you what you are about to eat. It looks the product up, reads the ingredient list, and turns that wall of chemical names into one number you can decide on in the aisle.
             </p>
             <div class="tags">
               <span>Python</span><span>Flask</span><span>OCR</span
@@ -490,7 +509,7 @@
             </div>
           </article>
 
-          <article class="card tilt" data-tags="python" data-cursor>
+          <article class="card tilt" data-tags="ai" data-cursor>
             <span class="card-idx">03</span>
             <span class="card-ico"
               ><svg
@@ -505,9 +524,7 @@
             ></span>
             <h3>Extract Text From Image (OCR)</h3>
             <p>
-              A utility that pulls text straight out of images and converts it
-              into clean, editable digital text using Optical Character
-              Recognition — handy for digitising notes, receipts, and documents.
+              A small tool that lifts text off an image and hands it back as something you can edit. Built it because retyping a page of notes twice was enough.
             </p>
             <div class="tags">
               <span>Python</span><span>OCR</span><span>Image Processing</span>
@@ -539,12 +556,12 @@
     </section>
     <section id="certs">
       <div class="wrap">
-        <div class="eyebrow reveal">// certifications</div>
+        <div class="eyebrow reveal">Certification</div>
         <h2 class="section-title reveal">
-          Credentials &amp; <span class="grad">training</span>
+          Where the <span class="grad">fundamentals</span> came from
         </h2>
         <p class="section-intro reveal">
-          Formal coursework that reinforces the fundamentals behind the code.
+          One certification, and it is the one that explains how the requests actually get there.
         </p>
         <div class="cert reveal" data-cursor>
           <span class="ic"
@@ -571,20 +588,18 @@
 
     <section id="contact">
       <div class="wrap">
-        <div class="eyebrow reveal">// 04 — say hello</div>
+        <div class="eyebrow reveal">Contact</div>
         <h2 class="section-title reveal">
-          Let's build something <span class="grad">together</span>
+          Come up for <span class="grad">air</span>
         </h2>
         <p class="section-intro reveal">
-          I'm open to internships and entry-level Full Stack Java roles. Have a
-          project in mind or just want to connect? Send a message and I'll get
-          back to you.
+          I am looking for an internship or graduate role in Java full stack development. If you are hiring, or you just want to talk about something you are building, write to me — I reply to all of it.
         </p>
 
         <div class="contact-grid">
           <form class="contact-form reveal" id="contactForm" novalidate>
             <div class="form-field">
-              <label for="cName">your name</label>
+              <label for="cName">Your name</label>
               <input
                 type="text"
                 id="cName"
@@ -596,7 +611,7 @@
               <div class="msg">Please enter your name.</div>
             </div>
             <div class="form-field">
-              <label for="cEmail">email</label>
+              <label for="cEmail">Email</label>
               <input
                 type="email"
                 id="cEmail"
@@ -608,12 +623,12 @@
               <div class="msg">Please enter a valid email address.</div>
             </div>
             <div class="form-field">
-              <label for="cMsg">message</label>
+              <label for="cMsg">Message</label>
               <textarea
                 id="cMsg"
                 name="message"
                 rows="5"
-                placeholder="Tell me about the role, project, or idea…"
+                placeholder="The role, the project, or the thing you are stuck on…"
                 data-cursor
               ></textarea>
               <div class="msg">Please write at least 10 characters.</div>
@@ -651,7 +666,7 @@
                   <path d="m3 6 9 7 9-7" /></svg
               ></span>
               <div>
-                <small>email</small
+                <small>Email</small
                 ><a href="mailto:ajinkaya01@gmail.com" data-cursor
                   >ajinkaya01@gmail.com</a
                 >
@@ -668,7 +683,7 @@
                   /></svg
               ></span>
               <div>
-                <small>github</small
+                <small>GitHub</small
                 ><a
                   href="https://github.com/Ajinkya-X"
                   target="_blank"
@@ -686,7 +701,7 @@
                   /></svg
               ></span>
               <div>
-                <small>linkedin</small
+                <small>LinkedIn</small
                 ><a
                   href="https://linkedin.com/in/ajinkaya"
                   target="_blank"
@@ -712,7 +727,7 @@
                   <circle cx="12" cy="10" r="2.6" /></svg
               ></span>
               <div>
-                <small>based in</small><span>India · open to remote</span>
+                <small>Based in</small><span>India &middot; open to remote</span>
               </div>
             </div>
             <a
@@ -746,9 +761,9 @@
         <a href="#hero" class="logo" data-cursor
           ><span class="dot"></span>ajinkaya<b>.dev</b></a
         >
-        <p>© 2026 Ajinkaya Pratap Bhosale — Full Stack Java Developer</p>
+        <p>&copy; 2026 Ajinkaya Pratap Bhosale &mdash; full stack Java developer</p>
         <p class="made">
-          Designed &amp; hand-coded from scratch — single file, no frameworks.
+          Hand-coded from scratch. No frameworks, no templates, no page builder.
         </p>
       </div>
     </footer>
@@ -781,10 +796,8 @@
         <p id="mDesc"></p>
         <ul id="mHigh"></ul>
         <div class="tags" id="mTags"></div>
-        <span
-          class="soon"
-          style="font-family: var(--font-mono); font-size: 0.78rem"
-          >// code &amp; live demo coming soon</span
+        <span class="soon-cap"
+          >Code and live demo coming soon</span
         >
       </div>
     </div>

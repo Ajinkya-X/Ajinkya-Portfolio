@@ -1,82 +1,109 @@
 /* ============================================================
    DESIGN TOKENS  (Primitive -> Semantic -> Component)
+
+   Direction: an abyssal descent. The page is a dive — the palette is
+   the water column from sunlit surface to the abyss, and the only
+   colour that isn't water is bioluminescence and instrument light.
    ============================================================ */
 :root{
   color-scheme: dark;
-  /* --- Primitive --- */
-  --plum-950:#0A0813; --plum-900:#0E0B1A; --plum-850:#141026;
-  --plum-800:#191331; --plum-750:#20193F; --plum-700:#2A2150;
-  --amber-300:#FFC978; --amber-400:#FFB44D; --amber-500:#FF9E2C; --amber-600:#F2830E;
-  --teal-300:#6BEBD6; --teal-400:#37E0C6; --teal-500:#16C7AC;
-  --iris-400:#A18CFF; --iris-500:#7C5CFC;
-  --pure-white:#FFFFFF;
-  --parchment:#ECE9F7; --haze:#A29BBC; --haze-dim:#6E6789;
-  --danger:#FF6B6B; --ok:#37E0C6;
 
-  /* --- Semantic (dark) --- */
-  --bg:var(--plum-900);
-  --bg-2:var(--plum-950);
-  --surface:rgba(255,255,255,.028);
-  --surface-2:rgba(255,255,255,.05);
-  --border:rgba(255,255,255,.08);
-  --border-strong:rgba(255,255,255,.16);
-  --text:var(--parchment);
-  --text-muted:var(--haze);
-  --text-dim:var(--haze-dim);
-  --primary:var(--amber-500);
-  --primary-soft:var(--amber-400);
-  --secondary:var(--teal-400);
-  --tertiary:var(--iris-500);
-  --ring:rgba(255,158,44,.55);
-  --shadow-lg:0 30px 80px -20px rgba(0,0,0,.7);
-  --glow-primary:0 0 60px -8px rgba(255,158,44,.5);
-  --glow-secondary:0 0 60px -8px rgba(55,224,198,.45);
-  --grad-brand:linear-gradient(115deg,var(--amber-500),var(--teal-400) 60%,var(--iris-500));
-  --grad-text:linear-gradient(115deg,#FFD9A0,var(--amber-500) 40%,var(--teal-400) 85%);
+  /* --- Primitive: the water column, surface -> abyss --- */
+  --abyss-950:#04080F; --abyss-900:#060B14; --abyss-850:#0A1220;
+  --abyss-800:#0C1626; --abyss-750:#102033; --abyss-700:#16293E;
+
+  /* bioluminescence — the only light this far down */
+  --biolume-300:#8DF7EC; --biolume-400:#38E1D4;
+  --biolume-500:#12C4B6; --biolume-600:#0BA396;
+
+  /* sonar — instrument blue */
+  --sonar-300:#9DBBFB; --sonar-400:#6B9AF7; --sonar-500:#4C7DF0;
+
+  /* siphonophore violet — used sparingly, deepest accent */
+  --nautilus-400:#A98BFF; --nautilus-500:#8A66F5;
+
+  --foam:#E6F1F7; --mist:#93A9BC; --mist-dim:#5E7386;
+  --danger:#FF6B7D; --ok:#38E1D4;
+
+  /* --- Semantic (deep water) --- */
+  --bg:var(--abyss-900);
+  --bg-2:var(--abyss-950);
+  /* surfaces are tinted with water, not neutral white */
+  --surface:rgba(140,200,230,.035);
+  --surface-2:rgba(140,200,230,.07);
+  --border:rgba(150,205,235,.1);
+  --border-strong:rgba(150,205,235,.2);
+  --text:var(--foam);
+  --text-muted:var(--mist);
+  --text-dim:var(--mist-dim);
+  --primary:var(--biolume-400);
+  --primary-soft:var(--biolume-300);
+  --secondary:var(--sonar-400);
+  --tertiary:var(--nautilus-500);
+  --ring:rgba(56,225,212,.55);
+  --shadow-lg:0 30px 80px -20px rgba(0,0,0,.75);
+  --glow-primary:0 0 60px -8px rgba(56,225,212,.45);
+  --glow-secondary:0 0 60px -8px rgba(76,125,240,.4);
+  --grad-brand:linear-gradient(115deg,var(--biolume-400),var(--sonar-400) 62%,var(--nautilus-500));
+  --grad-text:linear-gradient(115deg,#CFFFF8,var(--biolume-400) 38%,var(--sonar-400) 88%);
 
   /* --- Component --- */
-  --nav-bg:rgba(14,11,26,.6); --nav-solid:rgba(17,13,31,.97);
-  --card-bg:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  --nav-bg:rgba(6,11,20,.6); --nav-solid:rgba(8,14,24,.97);
+  --card-bg:linear-gradient(160deg,rgba(140,200,230,.055),rgba(140,200,230,.015));
   --card-border:var(--border);
-  --chip-bg:rgba(255,255,255,.04);
-  --ide-bg:rgba(16,13,30,.82);
-  --ide-header:rgba(255,255,255,.045);
+  --chip-bg:rgba(140,200,230,.045);
+  --panel-bg:rgba(8,16,28,.84);
+  --panel-head:rgba(140,200,230,.05);
   --btn-primary-bg:var(--grad-brand);
-  --btn-primary-fg:#160E04;
+  --btn-primary-fg:#032027;
+  --rail-line:rgba(150,205,235,.14);
+
+  /* depth: 0 at the surface, 1 in the abyss. Driven by scroll in JS,
+     so anything can read the current dive depth straight off the root. */
+  --depth:0;
 
   /* --- Scale --- */
   --maxw:1180px; --gutter:2.8rem;
   --radius:18px; --radius-sm:11px; --radius-lg:26px;
-  --font-display:"Bricolage Grotesque",system-ui,sans-serif;
-  --font-body:"Manrope",system-ui,sans-serif;
-  --font-mono:"JetBrains Mono",ui-monospace,monospace;
+  --font-display:"Sora",system-ui,sans-serif;
+  --font-body:"Space Grotesk",system-ui,sans-serif;
+  /* utility face for instrument labels — same family, set uppercase and
+     tracked out wide via .label / .eyebrow rather than a separate font */
+  --font-label:"Space Grotesk",system-ui,sans-serif;
+  --track-label:.16em;
   --step--1:clamp(.82rem,.78rem + .2vw,.92rem);
   --step-0:clamp(1rem,.95rem + .25vw,1.1rem);
   --step-1:clamp(1.2rem,1.1rem + .5vw,1.45rem);
   --step-2:clamp(1.5rem,1.3rem + 1vw,2rem);
-  --step-3:clamp(2rem,1.6rem + 2vw,3rem);
-  --step-4:clamp(2.7rem,2rem + 3.4vw,4.6rem);
-  --step-5:clamp(3.4rem,2.2rem + 5.4vw,6.6rem);
+  --step-3:clamp(2rem,1.6rem + 2vw,2.9rem);
+  --step-4:clamp(2.6rem,2rem + 3.2vw,4.3rem);
+  --step-5:clamp(3.2rem,2.2rem + 5vw,6rem);
 }
+
+/* Light theme = the shallows: sunlit, but still water. */
 [data-theme="light"]{
   color-scheme: light;
-  --bg:#F4F1FA; --bg-2:#EAE5F5;
-  --surface:rgba(20,10,45,.03);
-  --surface-2:rgba(20,10,45,.05);
-  --border:rgba(30,15,60,.1);
-  --border-strong:rgba(30,15,60,.2);
-  --text:#1C1533; --text-muted:#57506E; --text-dim:#847C9C;
-  --primary:var(--amber-600); --primary-soft:var(--amber-500);
-  --secondary:var(--teal-500);
-  --nav-bg:rgba(244,241,250,.7); --nav-solid:rgba(248,246,252,.98);
-  --card-bg:linear-gradient(160deg,rgba(255,255,255,.9),rgba(255,255,255,.55));
-  --card-border:rgba(30,15,60,.1);
-  --chip-bg:rgba(30,15,60,.04);
-  --ide-bg:rgba(255,255,255,.9);
-  --ide-header:rgba(20,10,45,.05);
-  --btn-primary-fg:#fff;
-  --shadow-lg:0 30px 80px -30px rgba(60,30,110,.4);
-  --glow-primary:0 0 50px -10px rgba(242,131,14,.35);
+  --bg:#EEF6FA; --bg-2:#E1EDF4;
+  --surface:rgba(6,40,60,.035);
+  --surface-2:rgba(6,40,60,.06);
+  --border:rgba(6,50,75,.12);
+  --border-strong:rgba(6,50,75,.24);
+  --text:#08222E; --text-muted:#41647A; --text-dim:#6F8CA0;
+  --primary:var(--biolume-600); --primary-soft:var(--biolume-500);
+  --secondary:var(--sonar-500);
+  --tertiary:var(--nautilus-500);
+  --ring:rgba(11,163,150,.5);
+  --nav-bg:rgba(238,246,250,.72); --nav-solid:rgba(243,249,252,.98);
+  --card-bg:linear-gradient(160deg,rgba(255,255,255,.92),rgba(255,255,255,.6));
+  --card-border:rgba(6,50,75,.12);
+  --chip-bg:rgba(6,50,75,.045);
+  --panel-bg:rgba(255,255,255,.92);
+  --panel-head:rgba(6,40,60,.05);
+  --btn-primary-fg:#04262E;
+  --shadow-lg:0 30px 80px -30px rgba(10,60,90,.35);
+  --glow-primary:0 0 50px -10px rgba(18,196,182,.3);
+  --glow-secondary:0 0 50px -10px rgba(76,125,240,.28);
+  --rail-line:rgba(6,50,75,.16);
 }
 
 /* ============================================================ RESET */
@@ -98,14 +125,15 @@ img{max-width:100%;display:block}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 ul{list-style:none}
 :focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px}
-::selection{background:var(--amber-500);color:#160E04}
+::selection{background:var(--primary);color:var(--btn-primary-fg)}
 
 /* ============================================================ LAYOUT */
 .wrap{width:min(100% - var(--gutter),var(--maxw));margin-inline:auto}
 section{position:relative;padding:clamp(4.5rem,9vw,8rem) 0}
 .eyebrow{
-  font-family:var(--font-mono);font-size:var(--step--1);letter-spacing:.02em;
-  color:var(--secondary);display:inline-flex;align-items:center;gap:.55rem;margin-bottom:1.1rem;
+  font-family:var(--font-label);font-size:.74rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:var(--track-label);
+  color:var(--secondary);display:inline-flex;align-items:center;gap:.7rem;margin-bottom:1.1rem;
 }
 .eyebrow::before{content:"";width:26px;height:1px;background:var(--secondary);opacity:.7}
 .section-title{
@@ -124,7 +152,7 @@ section{position:relative;padding:clamp(4.5rem,9vw,8rem) 0}
 }
 .btn svg{width:18px;height:18px}
 .btn-primary{background:var(--btn-primary-bg);color:var(--btn-primary-fg);box-shadow:var(--glow-primary)}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 40px -12px rgba(255,158,44,.6)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 40px -12px rgba(56,225,212,.5)}
 .btn-ghost{border:1px solid var(--border-strong);color:var(--text)}
 .btn-ghost:hover{transform:translateY(-3px);border-color:var(--primary);color:var(--primary)}
 .btn:active{transform:translateY(-1px) scale(.98)}
@@ -136,15 +164,26 @@ section{position:relative;padding:clamp(4.5rem,9vw,8rem) 0}
   transition:opacity .6s ease,visibility .6s ease;
 }
 #preloader.done{opacity:0;visibility:hidden}
-.pl-console{
-  font-family:var(--font-mono);font-size:.8rem;color:var(--text-muted);
-  width:min(90vw,420px);background:var(--ide-bg);border:1px solid var(--border);
-  border-radius:12px;padding:1rem 1.15rem;box-shadow:var(--shadow-lg);
+.pl-dive{position:relative;width:120px;height:120px;display:grid;place-items:center}
+.pl-ping{
+  position:absolute;inset:0;border-radius:50%;border:1px solid var(--primary);
+  opacity:0;animation:plPing 2.2s cubic-bezier(.2,.7,.2,1) infinite;
 }
-.pl-console .ln{opacity:0;transform:translateY(4px);animation:plln .3s forwards}
-.pl-console .ok{color:var(--secondary)}
-.pl-console .amber{color:var(--primary)}
-@keyframes plln{to{opacity:1;transform:none}}
+.pl-ping.d2{animation-delay:1.1s}
+@keyframes plPing{
+  0%{transform:scale(.35);opacity:.9}
+  70%{opacity:.06}
+  100%{transform:scale(1);opacity:0}
+}
+.pl-num{
+  font-family:var(--font-display);font-weight:700;font-size:1.5rem;
+  color:var(--text);letter-spacing:-.02em;
+}
+.pl-num b{font-weight:700;font-variant-numeric:tabular-nums}
+.pl-cap{
+  font-family:var(--font-label);font-size:.72rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:var(--track-label);color:var(--text-dim);
+}
 .pl-bar{height:3px;border-radius:3px;background:var(--surface-2);overflow:hidden;margin-top:.9rem}
 .pl-bar i{display:block;height:100%;width:0;background:var(--grad-brand);animation:plbar 1.9s cubic-bezier(.6,0,.2,1) forwards}
 @keyframes plbar{to{width:100%}}
@@ -206,7 +245,7 @@ nav.scrolled .nav-shell{
 
 /* --- logo: reads as a package path --- */
 .logo{
-  font-family:var(--font-mono);font-weight:700;font-size:1.02rem;letter-spacing:-.02em;
+  font-family:var(--font-display);font-weight:700;font-size:1.02rem;letter-spacing:-.03em;
   display:flex;align-items:center;gap:.5rem;position:relative;z-index:3;flex:none;
 }
 .logo b{color:var(--primary)}
@@ -245,7 +284,7 @@ nav.scrolled .nav-shell{
 .l-a,.l-b{display:block;transition:transform .42s cubic-bezier(.2,.8,.2,1)}
 .l-b{
   position:absolute;top:0;left:0;
-  font-family:var(--font-mono);font-size:.86em;color:var(--primary);
+  font-family:var(--font-label);font-size:.86em;color:var(--primary);
   transform:translateY(115%);
 }
 .nav-links a:hover .l-a,.nav-links a:focus-visible .l-a{transform:translateY(-115%)}
@@ -271,7 +310,7 @@ nav.scrolled .nav-shell{
   background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.5),transparent 70%);
   transform:translateX(-120%);transition:transform .65s cubic-bezier(.2,.8,.2,1);
 }
-.nav-cta:hover{transform:translateY(-2px);box-shadow:0 14px 32px -10px rgba(255,158,44,.6)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 14px 32px -10px rgba(56,225,212,.5)}
 .nav-cta:hover svg{transform:translateY(2px)}
 .nav-cta:hover::after{transform:translateX(120%)}
 
@@ -305,20 +344,36 @@ nav.scrolled .nav-shell{
 
 /* ============================================================ HERO */
 #hero{min-height:100svh;display:flex;align-items:center;padding-top:104px;overflow:hidden}
-#bg-canvas{position:absolute;inset:0;z-index:0;opacity:.9}
 .hero-glow{position:absolute;z-index:0;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none}
-.hero-glow.a{width:40vw;height:40vw;background:radial-gradient(circle,rgba(255,158,44,.45),transparent 70%);top:-10%;right:-5%}
-.hero-glow.b{width:35vw;height:35vw;background:radial-gradient(circle,rgba(124,92,252,.4),transparent 70%);bottom:-15%;left:-10%}
+.hero-glow.a{width:44vw;height:44vw;background:radial-gradient(circle,rgba(56,225,212,.3),transparent 70%);top:-14%;right:-6%}
+.hero-glow.b{width:38vw;height:38vw;background:radial-gradient(circle,rgba(76,125,240,.3),transparent 70%);bottom:-18%;left:-12%}
 .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,4vw,3.5rem);align-items:center;width:100%}
 .badge{
-  display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-mono);font-size:.78rem;
+  display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-label);font-size:.78rem;
   padding:.4rem .8rem;border:1px solid var(--border-strong);border-radius:100px;color:var(--text-muted);
   background:var(--surface);margin-bottom:1.5rem;
 }
 .badge .live{width:8px;height:8px;border-radius:50%;background:var(--secondary);box-shadow:0 0 10px var(--secondary);animation:pulse 1.6s infinite}
 .hero h1{font-family:var(--font-display);font-weight:800;font-size:var(--step-5);line-height:.98;letter-spacing:-.03em;margin-bottom:.4rem}
-.hero .role-line{font-family:var(--font-mono);font-size:var(--step-1);color:var(--text-muted);margin-bottom:1.4rem;min-height:1.6em}
-.hero .role-line .txt{color:var(--secondary)}
+.hero .role-line{
+  font-family:var(--font-body);font-size:var(--step-1);color:var(--text-muted);
+  margin-bottom:1.4rem;min-height:1.6em;
+}
+/* a small sonar dot in place of the old angle brackets. Kept inline-block
+   rather than a flex item so the caret still follows the text when the
+   role string wraps. */
+.hero .role-line::before{
+  content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+  margin-right:.6rem;vertical-align:middle;background:var(--primary);
+  box-shadow:0 0 0 0 rgba(56,225,212,.55);
+  animation:roleSonar 2.6s cubic-bezier(.2,.7,.2,1) infinite;
+}
+@keyframes roleSonar{
+  0%{box-shadow:0 0 0 0 rgba(56,225,212,.5)}
+  70%{box-shadow:0 0 0 11px rgba(56,225,212,0)}
+  100%{box-shadow:0 0 0 0 rgba(56,225,212,0)}
+}
+.hero .role-line .txt{color:var(--text);font-weight:500}
 .hero .role-line .caret{color:var(--primary);animation:blink 1s step-end infinite}
 @keyframes blink{50%{opacity:0}}
 .hero p.lede{color:var(--text-muted);font-size:var(--step-1);max-width:46ch;margin-bottom:2rem;line-height:1.55}
@@ -331,25 +386,89 @@ nav.scrolled .nav-shell{
 .socials a:hover{color:var(--primary);border-color:var(--primary);transform:translateY(-3px);box-shadow:var(--glow-primary)}
 .socials svg{width:20px;height:20px}
 
-/* IDE window (signature) */
-.ide{
-  background:var(--ide-bg);border:1px solid var(--border-strong);border-radius:var(--radius);
-  box-shadow:var(--shadow-lg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  overflow:hidden;transform-style:preserve-3d;transition:transform .2s ease-out;will-change:transform;
+/* Depth sounder (signature). A stack really is a depth profile: interface at
+   the surface, data on the floor. Depths and zone names are the real ones. */
+.sounder{
+  background:var(--panel-bg);border:1px solid var(--border-strong);
+  border-radius:var(--radius);box-shadow:var(--shadow-lg);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  overflow:hidden;transform-style:preserve-3d;
+  transition:transform .2s ease-out;will-change:transform;
 }
-.ide-head{display:flex;align-items:center;gap:.5rem;padding:.75rem 1rem;background:var(--ide-header);border-bottom:1px solid var(--border)}
-.ide-dot{width:12px;height:12px;border-radius:50%}
-.ide-dot.r{background:#FF5F57}.ide-dot.y{background:#FEBC2E}.ide-dot.g{background:#28C840}
-.ide-file{margin-left:.6rem;font-family:var(--font-mono);font-size:.78rem;color:var(--text-dim)}
-.ide-file b{color:var(--text-muted)}
-.ide-body{font-family:var(--font-mono);font-size:.82rem;line-height:1.75;padding:1.15rem 1.25rem 1.4rem;white-space:pre;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
-.ide-body .k{color:var(--iris-400)}
-.ide-body .t{color:var(--teal-300)}
-.ide-body .s{color:var(--amber-300)}
-.ide-body .c{color:var(--haze-dim);font-style:italic}
-.ide-body .m{color:var(--primary)}
-.ide-body .cursor{display:inline-block;width:8px;height:1.05em;background:var(--primary);vertical-align:-2px;animation:blink 1s step-end infinite}
-.scroll-cue{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--text-dim);font-family:var(--font-mono);font-size:.7rem}
+.sounder-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem 1.1rem;background:var(--panel-head);
+  border-bottom:1px solid var(--border);
+}
+.s-cap{
+  font-family:var(--font-label);font-size:.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:var(--track-label);color:var(--text-dim);
+}
+.s-read{font-family:var(--font-display);font-weight:700;font-size:.88rem;color:var(--primary)}
+.s-read b{font-variant-numeric:tabular-nums}
+
+.sounder-body{position:relative;padding:.35rem 0}
+/* the sonar line: one pass down the panel, and each layer answers as it goes */
+.sweep{
+  position:absolute;left:0;right:0;top:0;height:34%;pointer-events:none;
+  background:linear-gradient(to bottom,transparent,rgba(56,225,212,.09) 62%,rgba(56,225,212,.22));
+  border-bottom:1px solid rgba(56,225,212,.4);
+  animation:sonarSweep 5s cubic-bezier(.5,0,.5,1) infinite;
+}
+@keyframes sonarSweep{
+  0%{transform:translateY(-110%);opacity:0}
+  8%{opacity:1}
+  88%{opacity:1}
+  100%{transform:translateY(300%);opacity:0}
+}
+.layers{display:grid}
+.layer{
+  display:grid;grid-template-columns:auto 10px 1fr;align-items:center;
+  gap:.7rem;padding:.72rem 1.1rem;position:relative;
+  border-top:1px solid var(--border);
+}
+.layer:first-child{border-top:none}
+.l-depth{
+  font-family:var(--font-label);font-size:.66rem;font-weight:600;
+  letter-spacing:.06em;color:var(--text-dim);
+  font-variant-numeric:tabular-nums;min-width:3.9em;text-align:right;
+}
+.l-ping{
+  width:8px;height:8px;border-radius:50%;background:var(--text-dim);
+  animation:layerPing 5s cubic-bezier(.5,0,.5,1) infinite;
+  animation-delay:calc(var(--i) * .34s + .5s);
+}
+@keyframes layerPing{
+  0%,100%{background:var(--text-dim);box-shadow:none;transform:scale(1)}
+  6%{background:var(--primary);box-shadow:0 0 14px var(--primary);transform:scale(1.5)}
+  26%{background:var(--text-dim);box-shadow:none;transform:scale(1)}
+}
+.l-zone{
+  font-family:var(--font-label);font-size:.7rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);
+  grid-column:3;
+}
+.l-tech{
+  grid-column:3;font-size:.86rem;font-weight:500;color:var(--text);
+  overflow-wrap:anywhere;
+}
+/* each layer sits a little deeper in the water than the one above it */
+.layer:nth-child(2){background:rgba(4,8,15,.14)}
+.layer:nth-child(3){background:rgba(4,8,15,.28)}
+.layer:nth-child(4){background:rgba(4,8,15,.42)}
+.layer:nth-child(5){background:rgba(4,8,15,.56)}
+[data-theme=light] .layer:nth-child(2){background:rgba(8,34,46,.035)}
+[data-theme=light] .layer:nth-child(3){background:rgba(8,34,46,.07)}
+[data-theme=light] .layer:nth-child(4){background:rgba(8,34,46,.105)}
+[data-theme=light] .layer:nth-child(5){background:rgba(8,34,46,.14)}
+
+.sounder-foot{
+  padding:.7rem 1.1rem;border-top:1px solid var(--border);
+  background:var(--panel-head);
+  font-family:var(--font-label);font-size:.68rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:var(--track-label);color:var(--text-dim);
+}
+.scroll-cue{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--text-dim);font-family:var(--font-label);font-size:.63rem;font-weight:600;text-transform:uppercase;letter-spacing:var(--track-label)}
 .scroll-cue .mouse{width:24px;height:38px;border:1.5px solid var(--border-strong);border-radius:12px;position:relative}
 .scroll-cue .mouse::after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:7px;border-radius:3px;background:var(--primary);animation:wheel 1.6s infinite}
 @keyframes wheel{0%{opacity:0;top:6px}40%{opacity:1}80%{opacity:0;top:16px}}
@@ -368,11 +487,19 @@ nav.scrolled .nav-shell{
 .stat{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:1.4rem}
 .stat .num{font-family:var(--font-display);font-weight:800;font-size:var(--step-3);line-height:1;background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
 .stat .lbl{color:var(--text-muted);font-size:.85rem;margin-top:.4rem}
+/* small instrument-style heading above the sidebar timeline */
+.side-cap{
+  font-family:var(--font-label);font-size:.68rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:var(--track-label);
+  color:var(--text-dim);margin:2.4rem 0 1rem;
+  display:flex;align-items:center;gap:.6rem;
+}
+.side-cap::after{content:"";height:1px;flex:1;background:var(--rail-line)}
 .timeline{position:relative;padding-left:1.6rem}
 .timeline::before{content:"";position:absolute;left:4px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--primary),var(--secondary),transparent)}
 .tl-item{position:relative;padding-bottom:1.6rem}
-.tl-item::before{content:"";position:absolute;left:-1.6rem;top:5px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--primary);box-shadow:0 0 0 4px rgba(255,158,44,.12)}
-.tl-item .yr{font-family:var(--font-mono);font-size:.78rem;color:var(--secondary)}
+.tl-item::before{content:"";position:absolute;left:-1.6rem;top:5px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--primary);box-shadow:0 0 0 4px rgba(56,225,212,.12)}
+.tl-item .yr{font-family:var(--font-label);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-variant-numeric:tabular-nums;color:var(--secondary)}
 .tl-item h4{font-family:var(--font-display);font-weight:700;font-size:1.08rem;margin:.15rem 0}
 .tl-item span{color:var(--text-muted);font-size:.9rem}
 .bring{margin-top:2rem;display:grid;gap:.8rem}
@@ -383,25 +510,32 @@ nav.scrolled .nav-shell{
 .skills-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,4vw,3.5rem);align-items:center;margin-top:2.5rem}
 #skill-sphere{width:100%;height:420px;cursor:grab;position:relative;overflow:hidden;touch-action:pan-y}
 #skill-sphere:active{cursor:grabbing}
-.s-tag{position:absolute;top:50%;left:50%;font-family:var(--font-mono);font-size:.82rem;font-weight:600;padding:.32rem .62rem;border-radius:9px;background:var(--card-bg);border:1px solid var(--border-strong);color:var(--text-muted);white-space:nowrap;pointer-events:none;user-select:none;will-change:transform,opacity;transition:color .25s}
+.s-tag{position:absolute;top:50%;left:50%;font-family:var(--font-label);font-size:.82rem;font-weight:600;padding:.32rem .62rem;border-radius:9px;background:var(--card-bg);border:1px solid var(--border-strong);color:var(--text-muted);white-space:nowrap;pointer-events:none;user-select:none;will-change:transform,opacity;transition:color .25s}
 .skill-cats{display:grid;gap:1.5rem}
-.skill-cat h4{font-family:var(--font-mono);font-size:.8rem;color:var(--secondary);margin-bottom:.9rem;letter-spacing:.03em}
+.skill-cat h4{
+  font-family:var(--font-label);font-size:.7rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:var(--track-label);
+  color:var(--secondary);margin-bottom:.9rem;
+  display:flex;align-items:center;gap:.6rem;
+}
+/* a short rule after the label, like a depth marking on an instrument */
+.skill-cat h4::after{content:"";height:1px;flex:1;background:var(--rail-line)}
 .chips{display:flex;flex-wrap:wrap;gap:.6rem}
 .chip{
   display:inline-flex;align-items:center;gap:.5rem;padding:.5rem .9rem;border-radius:100px;
   background:var(--chip-bg);border:1px solid var(--border);font-size:.9rem;font-weight:600;
-  font-family:var(--font-mono);transition:.25s;
+  font-family:var(--font-label);transition:.25s;
 }
 .chip:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-2px)}
 .chip .d{width:7px;height:7px;border-radius:50%;background:var(--primary)}
 .chip.tl .d{background:var(--secondary)}
-.chip.ir .d{background:var(--iris-400)}
+.chip.ir .d{background:var(--nautilus-400)}
 .learning{margin-top:1.6rem;padding:1.1rem 1.25rem;border:1px dashed var(--border-strong);border-radius:var(--radius);background:var(--surface);font-size:.92rem;color:var(--text-muted)}
-.learning b{color:var(--primary);font-family:var(--font-mono);font-size:.8rem}
+.learning b{color:var(--primary);font-family:var(--font-label);font-size:.8rem}
 
 /* ============================================================ PROJECTS */
 .filters{display:flex;gap:.6rem;flex-wrap:wrap;margin:2rem 0}
-.filter{padding:.5rem 1rem;border-radius:100px;border:1px solid var(--border);font-size:.85rem;font-weight:600;font-family:var(--font-mono);color:var(--text-muted);transition:.25s}
+.filter{padding:.5rem 1.05rem;border-radius:100px;border:1px solid var(--border);font-size:.72rem;font-weight:600;font-family:var(--font-label);text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);transition:.25s}
 .filter.active,.filter:hover{background:var(--surface-2);color:var(--text);border-color:var(--border-strong)}
 .filter.active{color:var(--primary);border-color:var(--primary)}
 .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:1.5rem;align-items:stretch}
@@ -410,61 +544,71 @@ nav.scrolled .nav-shell{
   padding:1.6rem;overflow:hidden;transform-style:preserve-3d;transition:transform .18s ease-out,border-color .3s,opacity .4s;
   will-change:transform;display:flex;flex-direction:column;height:100%;
 }
-.card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(255,158,44,.14),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(56,225,212,.13),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none}
 .card:hover{border-color:var(--border-strong)}
 .card:hover::before{opacity:1}
 .card.hide{display:none}
-.card-idx{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim)}
+.card-idx{font-family:var(--font-label);font-size:.75rem;color:var(--text-dim)}
 .card-ico{width:52px;height:52px;border-radius:14px;background:var(--grad-brand);display:grid;place-items:center;margin:.4rem 0 1rem;transform:translateZ(40px);box-shadow:var(--glow-primary)}
-.card-ico svg{width:26px;height:26px;color:#160E04}
+.card-ico svg{width:26px;height:26px;color:var(--btn-primary-fg)}
 .card h3{font-family:var(--font-display);font-weight:700;font-size:1.3rem;margin-bottom:.55rem;transform:translateZ(28px)}
 .card p{color:var(--text-muted);font-size:.94rem;margin-bottom:1.1rem;transform:translateZ(18px)}
 .card .tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.2rem}
-.card .tags span{font-family:var(--font-mono);font-size:.72rem;padding:.28rem .6rem;border-radius:7px;background:var(--surface-2);color:var(--text-muted)}
-.card-links{display:flex;gap:1rem;font-family:var(--font-mono);font-size:.82rem;margin-top:auto;padding-top:1.1rem;align-items:center;flex-wrap:wrap}
+.card .tags span{font-family:var(--font-label);font-size:.72rem;padding:.28rem .6rem;border-radius:7px;background:var(--surface-2);color:var(--text-muted)}
+.card-links{display:flex;gap:1rem;font-family:var(--font-label);font-size:.82rem;margin-top:auto;padding-top:1.1rem;align-items:center;flex-wrap:wrap}
 .card-links a,.card-links button{display:inline-flex;align-items:center;gap:.4rem;color:var(--secondary);font-weight:600}
 .card-links a:hover,.card-links button:hover{color:var(--primary)}
 .card-links svg{width:15px;height:15px}
 .soon{color:var(--text-dim)!important;cursor:default}
+.soon-cap{
+  display:block;margin-top:1.4rem;font-family:var(--font-label);font-size:.68rem;
+  font-weight:600;text-transform:uppercase;letter-spacing:var(--track-label);
+  color:var(--text-dim);
+}
 
 /* ============================================================ CERT */
 .cert{display:flex;align-items:center;gap:1rem;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:1.2rem 1.4rem;max-width:520px;margin-top:2rem}
 .cert .ic{width:46px;height:46px;border-radius:12px;border:1px solid var(--border);display:grid;place-items:center;color:var(--secondary);flex:none}
 .cert h4{font-family:var(--font-display);font-weight:700;font-size:1.05rem}
-.cert span{color:var(--text-muted);font-size:.85rem;font-family:var(--font-mono)}
+.cert span{color:var(--text-muted);font-size:.85rem;font-family:var(--font-label)}
 
 /* ============================================================ CONTACT */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,3.5rem);margin-top:2.5rem;align-items:start}
 .form-field{margin-bottom:1.1rem}
-.form-field label{display:block;font-family:var(--font-mono);font-size:.78rem;color:var(--text-muted);margin-bottom:.45rem}
+.form-field label{
+  display:block;font-family:var(--font-label);font-size:.68rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:var(--track-label);
+  color:var(--text-dim);margin-bottom:.5rem;transition:color .25s;
+}
+.form-field:focus-within label{color:var(--primary)}
 .form-field input,.form-field textarea{
   width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
   padding:.85rem 1rem;color:var(--text);font-family:var(--font-body);font-size:1rem;transition:.25s;resize:vertical;
 }
-.form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--primary);background:var(--surface-2);box-shadow:0 0 0 4px rgba(255,158,44,.1)}
+.form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--primary);background:var(--surface-2);box-shadow:0 0 0 4px rgba(56,225,212,.12)}
 .form-field.err input,.form-field.err textarea{border-color:var(--danger)}
 .form-field .msg{font-size:.75rem;color:var(--danger);margin-top:.35rem;display:none}
 .form-field.err .msg{display:block}
 .contact-side .row{display:flex;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border)}
 .contact-side .row .ic{width:44px;height:44px;border-radius:12px;border:1px solid var(--border);display:grid;place-items:center;color:var(--primary);flex:none}
 .contact-side .row .ic svg{width:20px;height:20px}
-.contact-side .row small{color:var(--text-dim);font-family:var(--font-mono);font-size:.72rem;display:block}
+.contact-side .row small{color:var(--text-dim);font-family:var(--font-label);font-size:.72rem;display:block}
 .contact-side .row a,.contact-side .row span{font-weight:600;overflow-wrap:anywhere}
-.copy-btn{margin-left:auto;font-family:var(--font-mono);font-size:.72rem;color:var(--secondary);border:1px solid var(--border);padding:.35rem .6rem;border-radius:8px;transition:.2s}
+.copy-btn{margin-left:auto;font-family:var(--font-label);font-size:.72rem;color:var(--secondary);border:1px solid var(--border);padding:.35rem .6rem;border-radius:8px;transition:.2s}
 .copy-btn:hover{border-color:var(--secondary);background:var(--surface-2)}
 
 /* ============================================================ FOOTER */
 footer{border-top:1px solid var(--border);padding:2.5rem 0;text-align:center}
 footer .logo{justify-content:center;margin-bottom:1rem}
-footer p{color:var(--text-dim);font-size:.85rem;font-family:var(--font-mono)}
+footer p{color:var(--text-dim);font-size:.85rem;font-family:var(--font-label)}
 footer .made{margin-top:.4rem;color:var(--text-muted)}
 
 /* back to top + toast */
-#toTop{position:fixed;right:1.5rem;bottom:1.5rem;z-index:900;width:48px;height:48px;border-radius:14px;background:var(--grad-brand);color:#160E04;display:grid;place-items:center;opacity:0;transform:translateY(20px) scale(.8);transition:.3s;box-shadow:var(--glow-primary)}
+#toTop{position:fixed;right:1.5rem;bottom:1.5rem;z-index:900;width:48px;height:48px;border-radius:14px;background:var(--grad-brand);color:var(--btn-primary-fg);display:grid;place-items:center;opacity:0;transform:translateY(20px) scale(.8);transition:.3s;box-shadow:var(--glow-primary)}
 #toTop.show{opacity:1;transform:none}
 #toTop svg{width:22px;height:22px}
 #toast-wrap{position:fixed;left:50%;bottom:2rem;transform:translateX(-50%);z-index:9990;display:flex;flex-direction:column;gap:.6rem;align-items:center}
-.toast{background:var(--ide-bg);border:1px solid var(--border-strong);color:var(--text);padding:.8rem 1.2rem;border-radius:12px;font-size:.9rem;font-weight:600;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:.6rem;backdrop-filter:blur(12px);opacity:0;transform:translateY(16px);transition:.35s}
+.toast{background:var(--panel-bg);border:1px solid var(--border-strong);color:var(--text);padding:.8rem 1.2rem;border-radius:12px;font-size:.9rem;font-weight:600;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:.6rem;backdrop-filter:blur(12px);opacity:0;transform:translateY(16px);transition:.35s}
 .toast.show{opacity:1;transform:none}
 .toast svg{width:18px;height:18px;color:var(--secondary)}
 
@@ -473,19 +617,18 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
 .modal-back.open{opacity:1;visibility:visible}
 .modal{position:relative;background:var(--bg);border:1px solid var(--border-strong);border-radius:var(--radius-lg);max-width:560px;width:100%;padding:2.2rem;box-shadow:var(--shadow-lg);transform:translateY(24px) scale(.96);transition:transform .4s cubic-bezier(.2,.8,.2,1);max-height:88vh;overflow-y:auto}
 .modal-back.open .modal{transform:none}
-.modal .mrole{font-family:var(--font-mono);font-size:.76rem;color:var(--secondary);margin:.3rem 0 1rem}
+.modal .mrole{font-family:var(--font-label);font-size:.76rem;color:var(--secondary);margin:.3rem 0 1rem}
 .modal h3{font-family:var(--font-display);font-weight:800;font-size:1.55rem;line-height:1.1;padding-right:2rem}
 .modal>p{color:var(--text-muted);margin-bottom:1.2rem}
 .modal ul{display:grid;gap:.65rem;margin-bottom:1.3rem}
 .modal ul li{display:flex;gap:.6rem;color:var(--text-muted);font-size:.92rem}
 .modal ul li svg{width:18px;height:18px;color:var(--primary);flex:none;margin-top:4px}
 .modal .tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.5rem}
-.modal .tags span{font-family:var(--font-mono);font-size:.72rem;padding:.3rem .65rem;border-radius:7px;background:var(--surface-2);color:var(--text-muted)}
+.modal .tags span{font-family:var(--font-label);font-size:.72rem;padding:.3rem .65rem;border-radius:7px;background:var(--surface-2);color:var(--text-muted)}
 .modal-close{position:absolute;top:1.1rem;right:1.1rem;width:38px;height:38px;border-radius:10px;border:1px solid var(--border);display:grid;place-items:center;transition:.2s}
 .modal-close:hover{border-color:var(--danger);color:var(--danger)}
 .modal-close svg{width:18px;height:18px}
 
-/* ============================================================ RESPONSIVE */
 /* ============================================================ COMPONENT POLISH
    Restrained: the header is the loud element, everything here stays quiet
    and just gains a little depth + a clearer hover contract.
@@ -535,6 +678,198 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
 .reveal.in .eyebrow::before,.eyebrow.in::before{width:40px}
 
 /* ============================================================
+   THE WATER COLUMN  —  site-wide ambient
+   One fixed layer behind everything. Nothing here is decorative
+   for its own sake: each sub-layer is tied to --depth, which JS
+   writes from scroll position, so scrolling really is descending.
+   ============================================================ */
+.water{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;contain:layout style}
+.water>span{position:absolute;inset:0;display:block}
+
+/* #bg-canvas (marine snow) now lives inside .water, so it drifts
+   behind the whole page rather than only the hero */
+#bg-canvas{
+  position:absolute;inset:0;z-index:0;
+  opacity:calc(.9 - var(--depth) * .35);   /* thins out as light dies */
+  transition:opacity .6s linear;
+}
+
+/* light shafts from the surface — brightest at depth 0, gone by the abyss */
+.w-rays{
+  opacity:calc(1 - var(--depth) * 1.15);
+  background:
+    conic-gradient(from 194deg at 62% -12%, transparent 0deg,
+      rgba(141,247,236,.055) 6deg, transparent 13deg,
+      rgba(157,187,251,.05) 21deg, transparent 29deg,
+      rgba(141,247,236,.04) 38deg, transparent 46deg);
+  transform-origin:62% 0;
+  animation:raySway 19s ease-in-out infinite;
+}
+@keyframes raySway{
+  0%,100%{transform:skewX(0deg) scaleY(1)}
+  50%{transform:skewX(3.5deg) scaleY(1.06)}
+}
+
+/* caustics: the moving mesh of light on the surface of water */
+.w-caustic{
+  opacity:calc(.5 - var(--depth) * .5);
+  background:
+    radial-gradient(58% 34% at 22% 8%, rgba(141,247,236,.09), transparent 70%),
+    radial-gradient(46% 28% at 74% 3%, rgba(107,154,247,.08), transparent 72%),
+    radial-gradient(38% 22% at 48% 16%, rgba(141,247,236,.05), transparent 74%);
+  filter:blur(12px);
+  animation:caustic 15s ease-in-out infinite alternate;
+}
+@keyframes caustic{
+  0%{transform:translate3d(-3%,0,0) scale(1.05)}
+  100%{transform:translate3d(4%,2%,0) scale(1.16)}
+}
+
+/* the dark: crushes in from the bottom as you go down */
+.w-deep{
+  opacity:var(--depth);
+  background:linear-gradient(to bottom,transparent 8%,rgba(4,8,15,.55) 62%,rgba(4,8,15,.9));
+}
+[data-theme=light] .w-deep{background:linear-gradient(to bottom,transparent 12%,rgba(6,50,75,.1) 70%,rgba(6,50,75,.2))}
+[data-theme=light] .w-rays{opacity:calc(.7 - var(--depth) * .7)}
+
+/* ============================================================
+   DEPTH GAUGE  —  vertical rail, desktop only
+   Reads out real scroll progress as metres and names the zone.
+   ============================================================ */
+/* hidden by default and opted into only where there is real margin to
+   spare. Below 1280px the 1180px content column still reaches within
+   ~22px of the edge, which is less than the rail is wide — so it would
+   sit on top of the content. 1280px is the first width with real margin. */
+.depth-rail{display:none}
+@media (min-width:1280px){ .depth-rail{display:flex} }
+.depth-rail{
+  position:fixed;right:calc(var(--gutter) / 2 - .35rem);top:50%;transform:translateY(-50%);
+  z-index:800;flex-direction:column;align-items:center;gap:.85rem;
+  pointer-events:none;user-select:none;
+  font-family:var(--font-label);font-size:.6rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:var(--track-label);color:var(--text-dim);
+  opacity:0;animation:railIn 1s cubic-bezier(.2,.8,.2,1) 1.5s forwards;
+}
+@keyframes railIn{to{opacity:1}}
+.dr-cap,.dr-zone{writing-mode:vertical-rl}
+.dr-track{
+  position:relative;width:1px;height:34vh;max-height:280px;
+  background:linear-gradient(to bottom,transparent,var(--rail-line) 12%,var(--rail-line) 88%,transparent);
+}
+/* tick marks at the five zone boundaries — the same numbers the sounder uses */
+.dr-track::after{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(to bottom,var(--rail-line) 0 1px,transparent 1px 20%);
+  opacity:.9;
+}
+.dr-mark{
+  /* top resolves against .dr-track's height, so --depth maps to the full
+     rail. (A percentage translateY would resolve against the 9px dot.) */
+  position:absolute;left:50%;top:calc(var(--depth) * 100%);
+  width:9px;height:9px;margin-left:-4.5px;margin-top:-4.5px;
+  border-radius:50%;background:var(--primary);box-shadow:0 0 12px var(--primary);
+  transition:top .18s linear;
+}
+.dr-read{font-family:var(--font-display);font-size:.72rem;letter-spacing:0;color:var(--text-muted)}
+.dr-read b{font-weight:700;font-variant-numeric:tabular-nums;color:var(--primary)}
+.dr-zone{color:var(--text-muted)}
+/* zone name flips over when you cross a boundary */
+.dr-zone.flip{animation:zoneFlip .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes zoneFlip{
+  0%{opacity:0;transform:translateY(-9px)}
+  100%{opacity:1;transform:none}
+}
+
+/* ============================================================
+   FLUID MOTION  —  replaces the old snap-and-slide behaviour
+   Everything eases like it is moving through water: slower out,
+   slight overshoot, and it drifts up rather than sliding in.
+   ============================================================ */
+:root{--ease-water:cubic-bezier(.16,.84,.28,1)}
+
+/* reveal: content surfaces from below and settles, instead of a hard slide */
+.reveal{
+  opacity:0;transform:translateY(38px) scale(.988);
+  filter:blur(6px);
+  transition:opacity 1s var(--ease-water),transform 1.1s var(--ease-water),filter .9s var(--ease-water);
+}
+.reveal.in{opacity:1;transform:none;filter:none}
+
+/* buttons: the sweep is now a caustic pass, not a white glare */
+.btn::after{
+  background:linear-gradient(105deg,transparent 30%,rgba(141,247,236,.3) 46%,rgba(255,255,255,.3) 52%,transparent 70%);
+  transition:transform .95s var(--ease-water);
+}
+
+/* cards: bioluminescent bloom — it lights where the pointer is (--mx/--my
+   are already written by the existing pointer handler) */
+.card::before{
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(56,225,212,.15),transparent 46%);
+  transition:opacity .55s var(--ease-water);
+}
+.card{transition:transform .18s ease-out,border-color .45s,box-shadow .6s var(--ease-water)}
+.card:hover{box-shadow:0 22px 60px -30px rgba(56,225,212,.4)}
+
+/* chips, stats, certs: a slow idle float, staggered so the grid breathes
+   unevenly like something suspended in current */
+@keyframes drift{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-4px)}
+}
+.chip{animation:drift 7s ease-in-out infinite}
+.chip:nth-child(4n+2){animation-delay:-1.7s;animation-duration:7.8s}
+.chip:nth-child(4n+3){animation-delay:-3.4s;animation-duration:6.4s}
+.chip:nth-child(4n+4){animation-delay:-5.1s;animation-duration:8.4s}
+.chip:hover{animation-play-state:paused}
+.chip,.stat,.cert{transition:transform .5s var(--ease-water),translate .4s var(--ease-water),border-color .45s,color .45s}
+.chip{translate:0 0}
+.chip:hover{translate:0 -4px}
+.stat:hover,.cert:hover{transform:translateY(-5px)}
+.stat,.cert{position:relative;overflow:hidden}
+/* a faint sonar wash crosses the stat/cert panels on hover */
+.stat::after,.cert::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(56,225,212,.14),transparent 55%);
+  transform:translateY(-100%);transition:transform .8s var(--ease-water);
+}
+.stat:hover::after,.cert:hover::after{transform:translateY(100%)}
+
+/* 3D skill sphere: tags read as biolume specks rather than solid pills */
+.s-tag{
+  background:rgba(8,16,28,.55);border-color:var(--border);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  transition:color .3s,border-color .3s,box-shadow .3s;
+}
+.s-tag:hover{color:var(--primary);border-color:var(--primary);box-shadow:0 0 18px -4px rgba(56,225,212,.6)}
+[data-theme=light] .s-tag{background:rgba(255,255,255,.7)}
+
+/* pointer ripple: every click displaces water (spawned in JS) */
+.ripple{
+  position:fixed;top:0;left:0;width:16px;height:16px;margin:-8px 0 0 -8px;
+  border-radius:50%;border:1px solid var(--primary);
+  pointer-events:none;z-index:9995;
+  animation:rippleOut .8s cubic-bezier(.15,.75,.25,1) forwards;
+}
+@keyframes rippleOut{
+  0%{transform:scale(.3);opacity:.85}
+  100%{transform:scale(7);opacity:0}
+}
+
+/* the section rule under each eyebrow now reads as a depth marking */
+.reveal.in .eyebrow::before,.eyebrow.in::before{width:44px}
+
+/* ---- respect reduced motion: keep the depth data, drop the drifting ---- */
+@media (prefers-reduced-motion:reduce){
+  .w-rays,.w-caustic,.chip,.dr-zone.flip,.hero .role-line::before{animation:none!important}
+  .reveal{filter:none;transform:none;transition:opacity .3s linear}
+  .sweep,.l-ping{animation:none!important}
+  .sweep{opacity:0}
+  .ripple{display:none}
+  .stat::after,.cert::after{display:none}
+}
+
+/* ============================================================
    RESPONSIVE  —  ladder: 1100 / 900 / 700 / 520 / 400
    ============================================================ */
 
@@ -562,9 +897,9 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
   /* hero: stop forcing full viewport height once stacked, and put the
      code window under the text instead of above it */
   #hero{min-height:auto;align-items:flex-start;padding-top:calc(60px + 4rem);padding-bottom:4.5rem}
-  /* .ide-outer is the grid child (.ide is nested inside it), so ordering
-     belongs here; default DOM order already puts text above the code window */
-  .ide-outer{order:0;margin-top:.5rem}
+  /* .sounder-outer is the grid child (.sounder is nested inside it), so
+     ordering belongs here; DOM order already puts text above the sounder */
+  .sounder-outer{order:0;margin-top:.5rem}
   .scroll-cue{display:none}          /* overlapped stacked content */
   .hero p.lede,.section-intro{max-width:62ch}
   .hero-glow{filter:blur(70px);opacity:.4}
@@ -648,9 +983,13 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
   #hero{padding-top:calc(60px + 3.2rem);padding-bottom:3.5rem}
   .badge{font-size:.72rem}
 
-  /* code window: shrink so fewer lines need horizontal scrolling */
-  .ide-body{font-size:.72rem;line-height:1.7;padding:1rem 1rem 1.15rem}
-  .ide-file{font-size:.7rem}
+  /* depth sounder: tighten the column so five zones still read cleanly */
+  .layer{padding:.6rem .9rem;gap:.55rem}
+  .l-depth{font-size:.66rem}
+  .l-zone{font-size:.88rem}
+  .l-tech{font-size:.7rem}
+  .s-cap,.sounder-foot{font-size:.63rem}
+  .s-read{font-size:.82rem}
 
   .proj-grid{grid-template-columns:1fr;gap:1.15rem}
   .card{padding:1.35rem}
@@ -659,6 +998,12 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
 
   #skill-sphere{height:300px}
   .s-tag{font-size:.76rem;padding:.28rem .55rem}
+
+  /* phone GPUs: drop the blurred, animated, full-viewport caustic layer and
+     the blur on the reveal transition. The depth tint and the drift stay. */
+  .w-caustic{display:none}
+  .w-rays{animation:none;opacity:calc(.8 - var(--depth) * .9)}
+  .reveal{filter:none;transform:translateY(26px)}
 
   .stat{padding:1.15rem}
   .stat .num{font-size:clamp(1.7rem,7vw,2.2rem)}
@@ -710,7 +1055,10 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
   .hero .role-line{font-size:.9rem}
   .stat-grid{grid-template-columns:1fr}      /* 2 cols were too cramped */
   .card{padding:1.15rem}
-  .ide-body{font-size:.67rem;padding:.85rem .85rem 1rem}
+  .layer{padding:.5rem .7rem;gap:.45rem;grid-template-columns:auto 8px 1fr}
+  .l-zone{font-size:.8rem}
+  .l-tech{font-size:.65rem}
+  .sounder-head,.sounder-foot{padding-inline:.8rem}
   #skill-sphere{height:250px}
   .logo{font-size:.98rem}
 }

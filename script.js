@@ -34,14 +34,49 @@
   /* ---------------- NAV / SCROLL ---------------- */
   const nav=$("#nav"), burger=$("#burger"), navLinks=$("#navLinks"), progress=$("#progress"), toTop=$("#toTop");
   const sections=$$("section[id]"), navItems=$$("#navLinks a");
+  /* ---------------- MAGNETIC NAV INDICATOR ----------------
+     Tracks the hovered link, settles on the active section on mouse-out.
+     Transform/width only, so it stays on the compositor.               */
+  const indicator=$("#navIndicator"), sectionLinks=$$('#navLinks a[href^="#"]');
+  function placeIndicator(el){
+    if(!indicator || !el) return;
+    if(innerWidth<=900){ indicator.style.opacity="0"; return; }
+    indicator.style.width = el.offsetWidth + "px";
+    indicator.style.transform = "translate3d(" + el.offsetLeft + "px,-50%,0)";
+    indicator.style.opacity = "1";
+  }
+  function moveIndicator(){
+    const active = sectionLinks.find(a => a.classList.contains("active"));
+    if(active) placeIndicator(active);
+    else if(indicator) indicator.style.opacity="0";
+  }
+  sectionLinks.forEach(a => {
+    a.addEventListener("mouseenter", () => placeIndicator(a));
+    a.addEventListener("focus",      () => placeIndicator(a));
+  });
+  navLinks && navLinks.addEventListener("mouseleave", moveIndicator);
+  addEventListener("resize", moveIndicator);
+  // fonts land after first paint and change link widths, so re-measure
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(moveIndicator);
+
+  let lastY=scrollY;
   function onScroll(){
-    const h=document.documentElement;
+    const h=document.documentElement, y=scrollY;
     if(progress) progress.style.transform = "scaleX(" + ((h.scrollTop/(h.scrollHeight-h.clientHeight))||0) + ")";
-    if(nav) nav.classList.toggle("scrolled", scrollY>30);
-    if(toTop) toTop.classList.toggle("show", scrollY>560);
-    let cur=""; const pos=scrollY+innerHeight*0.35;
+    if(nav){
+      nav.classList.toggle("scrolled", y>30);
+      // hide while scrolling down, bring it back on the way up (never while the
+      // mobile menu is open, or the close button would vanish)
+      const menuOpen = navLinks && navLinks.classList.contains("open");
+      if(!menuOpen && y>260 && y>lastY+6)      nav.classList.add("nav-hidden");
+      else if(menuOpen || y<lastY-6 || y<=260) nav.classList.remove("nav-hidden");
+    }
+    if(toTop) toTop.classList.toggle("show", y>560);
+    let cur=""; const pos=y+innerHeight*0.35;
     sections.forEach(s => { if(s.offsetTop<=pos) cur=s.id; });
     navItems.forEach(a => a.classList.toggle("active", a.getAttribute("href")==="#"+cur));
+    moveIndicator();
+    lastY = y<0 ? 0 : y;
   }
   let ticking=false;
   addEventListener("scroll", () => { if(!ticking){ requestAnimationFrame(()=>{onScroll();ticking=false;}); ticking=true; } }, {passive:true});
@@ -50,7 +85,10 @@
   burger && burger.addEventListener("click", () => {
     const open=navLinks.classList.toggle("open");
     burger.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     document.body.style.overflow = open ? "hidden" : "";
+    if(open) nav && nav.classList.remove("nav-hidden");
   });
   toTop && toTop.addEventListener("click", () => scrollTo({top:0, behavior: reduce?"auto":"smooth"}));
 
@@ -62,7 +100,7 @@
         e.preventDefault();
         el.scrollIntoView({behavior: reduce?"auto":"smooth", block:"start"});
         navLinks && navLinks.classList.remove("open");
-        burger && burger.classList.remove("open");
+        if(burger){ burger.classList.remove("open"); burger.setAttribute("aria-expanded","false"); burger.setAttribute("aria-label","Open menu"); }
         document.body.style.overflow="";
       }
     }

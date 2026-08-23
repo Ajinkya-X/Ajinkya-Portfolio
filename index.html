@@ -42,45 +42,35 @@
     <div class="progress-bar" id="progress"></div>
 
     <nav id="nav">
-      <div class="wrap nav-in">
-        <a href="#hero" class="logo" data-cursor
-          ><span class="dot"></span>ajinkaya<b>.dev</b></a
-        >
+      <div class="nav-shell">
+        <a href="#hero" class="logo" data-cursor aria-label="Home">
+          <span class="dot"></span><span class="logo-txt">ajinkaya<b>.dev</b></span><span class="logo-caret">_</span>
+        </a>
+
         <ul class="nav-links" id="navLinks">
-          <li>
-            <a href="#about" data-cursor><span class="n">01</span>About</a>
-          </li>
-          <li>
-            <a href="#skills" data-cursor><span class="n">02</span>Skills</a>
-          </li>
-          <li>
-            <a href="#projects" data-cursor
-              ><span class="n">03</span>Projects</a
-            >
-          </li>
-          <li>
-            <a href="#contact" data-cursor><span class="n">04</span>Contact</a>
+          <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
+          <li><a href="#about" data-cursor><span class="lbl"><span class="l-a">About</span><span class="l-b">About</span></span></a></li>
+          <li><a href="#skills" data-cursor><span class="lbl"><span class="l-a">Skills</span><span class="l-b">Skills</span></span></a></li>
+          <li><a href="#projects" data-cursor><span class="lbl"><span class="l-a">Projects</span><span class="l-b">Projects</span></span></a></li>
+          <li><a href="#contact" data-cursor><span class="lbl"><span class="l-a">Contact</span><span class="l-b">Contact</span></span></a></li>
+          <li class="nav-m-cta">
+            <a href="assets/Ajinkaya_Pratap_Bhosale_Resume.pdf" download data-cursor>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+              Download r&eacute;sum&eacute;
+            </a>
           </li>
         </ul>
+
         <div class="nav-tools">
-          <button
-            class="theme-toggle"
-            id="themeBtn"
-            data-cursor
-            aria-label="Toggle light / dark theme"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
-            </svg>
+          <a class="nav-cta" href="assets/Ajinkaya_Pratap_Bhosale_Resume.pdf" download data-cursor>
+            <span>R&eacute;sum&eacute;</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          </a>
+          <button class="theme-toggle" id="themeBtn" data-cursor aria-label="Toggle light / dark theme">
+            <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.2v2.1M12 19.7v2.1M2.2 12h2.1M19.7 12h2.1M5.1 5.1l1.5 1.5M17.4 17.4l1.5 1.5M18.9 5.1l-1.5 1.5M6.6 17.4l-1.5 1.5"/></svg>
+            <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
           </button>
-          <button class="burger" id="burger" data-cursor aria-label="Open menu">
-            <span></span><span></span><span></span>
-          </button>
+          <button class="burger" id="burger" data-cursor aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
         </div>
       </div>
     </nav>

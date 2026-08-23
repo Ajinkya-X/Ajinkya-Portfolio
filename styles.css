@@ -45,7 +45,7 @@
   --btn-primary-fg:#160E04;
 
   /* --- Scale --- */
-  --maxw:1180px;
+  --maxw:1180px; --gutter:2.8rem;
   --radius:18px; --radius-sm:11px; --radius-lg:26px;
   --font-display:"Bricolage Grotesque",system-ui,sans-serif;
   --font-body:"Manrope",system-ui,sans-serif;
@@ -89,6 +89,7 @@ body{
   font-size:var(--step-0);
   line-height:1.6;
   overflow-x:hidden;
+  scroll-padding-top:88px;
   -webkit-font-smoothing:antialiased;
   transition:background .5s ease,color .5s ease;
 }
@@ -100,7 +101,7 @@ ul{list-style:none}
 ::selection{background:var(--amber-500);color:#160E04}
 
 /* ============================================================ LAYOUT */
-.wrap{width:min(100% - 2.4rem,var(--maxw));margin-inline:auto}
+.wrap{width:min(100% - var(--gutter),var(--maxw));margin-inline:auto}
 section{position:relative;padding:clamp(4.5rem,9vw,8rem) 0}
 .eyebrow{
   font-family:var(--font-mono);font-size:var(--step--1);letter-spacing:.02em;
@@ -191,7 +192,7 @@ nav.scrolled{border-bottom-color:var(--border)}
 .hero-glow{position:absolute;z-index:0;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none}
 .hero-glow.a{width:40vw;height:40vw;background:radial-gradient(circle,rgba(255,158,44,.45),transparent 70%);top:-10%;right:-5%}
 .hero-glow.b{width:35vw;height:35vw;background:radial-gradient(circle,rgba(124,92,252,.4),transparent 70%);bottom:-15%;left:-10%}
-.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;width:100%}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,4vw,3.5rem);align-items:center;width:100%}
 .badge{
   display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-mono);font-size:.78rem;
   padding:.4rem .8rem;border:1px solid var(--border-strong);border-radius:100px;color:var(--text-muted);
@@ -224,7 +225,7 @@ nav.scrolled{border-bottom-color:var(--border)}
 .ide-dot.r{background:#FF5F57}.ide-dot.y{background:#FEBC2E}.ide-dot.g{background:#28C840}
 .ide-file{margin-left:.6rem;font-family:var(--font-mono);font-size:.78rem;color:var(--text-dim)}
 .ide-file b{color:var(--text-muted)}
-.ide-body{font-family:var(--font-mono);font-size:.82rem;line-height:1.75;padding:1.15rem 1.25rem 1.4rem;white-space:pre;overflow-x:auto}
+.ide-body{font-family:var(--font-mono);font-size:.82rem;line-height:1.75;padding:1.15rem 1.25rem 1.4rem;white-space:pre;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .ide-body .k{color:var(--iris-400)}
 .ide-body .t{color:var(--teal-300)}
 .ide-body .s{color:var(--amber-300)}
@@ -242,7 +243,7 @@ nav.scrolled{border-bottom-color:var(--border)}
 .reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}.reveal.d4{transition-delay:.4s}
 
 /* ============================================================ ABOUT */
-.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;margin-top:2.5rem}
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,4vw,3.5rem);margin-top:2.5rem;align-items:start}
 .about-lead{font-size:var(--step-1);line-height:1.6;margin-bottom:1.4rem}
 .about-lead b{color:var(--text)}
 .about p{color:var(--text-muted);margin-bottom:1.1rem}
@@ -262,8 +263,8 @@ nav.scrolled{border-bottom-color:var(--border)}
 .bring li svg{width:20px;height:20px;color:var(--secondary);flex:none;margin-top:3px}
 
 /* ============================================================ SKILLS */
-.skills-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:center;margin-top:2.5rem}
-#skill-sphere{width:100%;height:420px;cursor:grab;position:relative;overflow:hidden;touch-action:none}
+.skills-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,4vw,3.5rem);align-items:center;margin-top:2.5rem}
+#skill-sphere{width:100%;height:420px;cursor:grab;position:relative;overflow:hidden;touch-action:pan-y}
 #skill-sphere:active{cursor:grabbing}
 .s-tag{position:absolute;top:50%;left:50%;font-family:var(--font-mono);font-size:.82rem;font-weight:600;padding:.32rem .62rem;border-radius:9px;background:var(--card-bg);border:1px solid var(--border-strong);color:var(--text-muted);white-space:nowrap;pointer-events:none;user-select:none;will-change:transform,opacity;transition:color .25s}
 .skill-cats{display:grid;gap:1.5rem}
@@ -286,11 +287,11 @@ nav.scrolled{border-bottom-color:var(--border)}
 .filter{padding:.5rem 1rem;border-radius:100px;border:1px solid var(--border);font-size:.85rem;font-weight:600;font-family:var(--font-mono);color:var(--text-muted);transition:.25s}
 .filter.active,.filter:hover{background:var(--surface-2);color:var(--text);border-color:var(--border-strong)}
 .filter.active{color:var(--primary);border-color:var(--primary)}
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:1.5rem;align-items:stretch}
 .card{
   position:relative;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-lg);
   padding:1.6rem;overflow:hidden;transform-style:preserve-3d;transition:transform .18s ease-out,border-color .3s,opacity .4s;
-  will-change:transform;
+  will-change:transform;display:flex;flex-direction:column;height:100%;
 }
 .card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(255,158,44,.14),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none}
 .card:hover{border-color:var(--border-strong)}
@@ -303,7 +304,7 @@ nav.scrolled{border-bottom-color:var(--border)}
 .card p{color:var(--text-muted);font-size:.94rem;margin-bottom:1.1rem;transform:translateZ(18px)}
 .card .tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.2rem}
 .card .tags span{font-family:var(--font-mono);font-size:.72rem;padding:.28rem .6rem;border-radius:7px;background:var(--surface-2);color:var(--text-muted)}
-.card-links{display:flex;gap:1rem;font-family:var(--font-mono);font-size:.82rem}
+.card-links{display:flex;gap:1rem;font-family:var(--font-mono);font-size:.82rem;margin-top:auto;padding-top:1.1rem;align-items:center;flex-wrap:wrap}
 .card-links a,.card-links button{display:inline-flex;align-items:center;gap:.4rem;color:var(--secondary);font-weight:600}
 .card-links a:hover,.card-links button:hover{color:var(--primary)}
 .card-links svg{width:15px;height:15px}
@@ -316,12 +317,12 @@ nav.scrolled{border-bottom-color:var(--border)}
 .cert span{color:var(--text-muted);font-size:.85rem;font-family:var(--font-mono)}
 
 /* ============================================================ CONTACT */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.5rem}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,3.5rem);margin-top:2.5rem;align-items:start}
 .form-field{margin-bottom:1.1rem}
 .form-field label{display:block;font-family:var(--font-mono);font-size:.78rem;color:var(--text-muted);margin-bottom:.45rem}
 .form-field input,.form-field textarea{
   width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
-  padding:.85rem 1rem;color:var(--text);font-family:var(--font-body);font-size:.95rem;transition:.25s;resize:vertical;
+  padding:.85rem 1rem;color:var(--text);font-family:var(--font-body);font-size:1rem;transition:.25s;resize:vertical;
 }
 .form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--primary);background:var(--surface-2);box-shadow:0 0 0 4px rgba(255,158,44,.1)}
 .form-field.err input,.form-field.err textarea{border-color:var(--danger)}
@@ -331,7 +332,7 @@ nav.scrolled{border-bottom-color:var(--border)}
 .contact-side .row .ic{width:44px;height:44px;border-radius:12px;border:1px solid var(--border);display:grid;place-items:center;color:var(--primary);flex:none}
 .contact-side .row .ic svg{width:20px;height:20px}
 .contact-side .row small{color:var(--text-dim);font-family:var(--font-mono);font-size:.72rem;display:block}
-.contact-side .row a,.contact-side .row span{font-weight:600;word-break:break-all}
+.contact-side .row a,.contact-side .row span{font-weight:600;overflow-wrap:anywhere}
 .copy-btn{margin-left:auto;font-family:var(--font-mono);font-size:.72rem;color:var(--secondary);border:1px solid var(--border);padding:.35rem .6rem;border-radius:8px;transition:.2s}
 .copy-btn:hover{border-color:var(--secondary);background:var(--surface-2)}
 
@@ -368,20 +369,151 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
 .modal-close svg{width:18px;height:18px}
 
 /* ============================================================ RESPONSIVE */
+/* ============================================================
+   RESPONSIVE  —  ladder: 1100 / 900 / 700 / 520 / 400
+   ============================================================ */
+
+/* grid children must be allowed to shrink, or wide content
+   (code, long words) blows the layout out horizontally */
+.hero-grid>*,.about-grid>*,.skills-wrap>*,.contact-grid>*,.proj-grid>*{min-width:0}
+
+/* ---------- <=1100px : tighten the two-column rhythm ---------- */
+@media (max-width:1100px){
+  :root{--gutter:2.6rem}
+  .hero-grid{grid-template-columns:1fr .92fr}
+  .about-grid{grid-template-columns:1.1fr .9fr}
+  .skills-wrap{grid-template-columns:1fr 1.1fr}
+  #skill-sphere{height:380px}
+}
+
+/* ---------- <=900px : single column, mobile nav ---------- */
 @media (max-width:900px){
-  .hero-grid,.about-grid,.skills-wrap,.contact-grid{grid-template-columns:1fr;gap:2.2rem}
-  .ide{order:-1}
-  #skill-sphere{height:300px}
-  .nav-links{position:fixed;inset:68px 0 auto 0;flex-direction:column;background:var(--bg);padding:1rem 1.2rem 1.6rem;gap:.2rem;border-bottom:1px solid var(--border);transform:translateY(-120%);transition:transform .4s cubic-bezier(.2,.8,.2,1);align-items:stretch}
+  :root{--gutter:2.5rem}
+
+  .hero-grid,.about-grid,.skills-wrap,.contact-grid{
+    grid-template-columns:1fr;gap:2.6rem;align-items:stretch
+  }
+
+  /* hero: stop forcing full viewport height once stacked, and put the
+     code window under the text instead of above it */
+  #hero{min-height:auto;align-items:flex-start;padding-top:calc(68px + 2.6rem);padding-bottom:4.5rem}
+  /* .ide-outer is the grid child (.ide is nested inside it), so ordering
+     belongs here; default DOM order already puts text above the code window */
+  .ide-outer{order:0;margin-top:.5rem}
+  .scroll-cue{display:none}          /* overlapped stacked content */
+  .hero p.lede,.section-intro{max-width:62ch}
+  .hero-glow{filter:blur(70px);opacity:.4}
+  .hero-glow.a{width:60vw;height:60vw}
+  .hero-glow.b{width:55vw;height:55vw}
+
+  /* mobile nav panel */
+  .nav-links{
+    position:fixed;inset:68px 0 auto 0;flex-direction:column;background:var(--bg);
+    padding:1rem 1.2rem 1.6rem;gap:.2rem;border-bottom:1px solid var(--border);
+    transform:translateY(-120%);transition:transform .4s cubic-bezier(.2,.8,.2,1);
+    align-items:stretch;max-height:calc(100svh - 68px);overflow-y:auto
+  }
   .nav-links.open{transform:none}
   .nav-links a{padding:.9rem 1rem}
   .burger{display:flex}
+
   .stat-grid{grid-template-columns:repeat(2,1fr)}
+  #skill-sphere{height:330px}
 }
+
+/* ---------- <=700px : real phone territory ---------- */
+@media (max-width:700px){
+  :root{--gutter:2.4rem}
+
+  section{padding:clamp(3.5rem,8vw,5.5rem) 0}
+
+  /* display type was sized for desktop and felt oversized/cramped */
+  .hero h1{font-size:clamp(2.6rem,10.5vw,3.7rem);line-height:1.02;letter-spacing:-.02em}
+  .hero .role-line{font-size:clamp(.95rem,3.7vw,1.15rem);min-height:2.4em;line-height:1.45}
+  .section-title{font-size:clamp(1.75rem,6.4vw,2.4rem)}
+  .about-lead,.hero p.lede,.section-intro{font-size:1.02rem}
+
+  #hero{padding-top:calc(68px + 2rem);padding-bottom:3.5rem}
+  .badge{font-size:.72rem}
+
+  /* code window: shrink so fewer lines need horizontal scrolling */
+  .ide-body{font-size:.72rem;line-height:1.7;padding:1rem 1rem 1.15rem}
+  .ide-file{font-size:.7rem}
+
+  .proj-grid{grid-template-columns:1fr;gap:1.15rem}
+  .card{padding:1.35rem}
+  .card-ico{width:46px;height:46px;border-radius:12px;transform:none}  /* 3D pop looked broken w/o hover */
+  .card-ico svg{width:23px;height:23px}
+
+  #skill-sphere{height:300px}
+  .s-tag{font-size:.76rem;padding:.28rem .55rem}
+
+  .stat{padding:1.15rem}
+  .stat .num{font-size:clamp(1.7rem,7vw,2.2rem)}
+  .stat .lbl{font-size:.8rem}
+
+  .cert{padding:1.05rem 1.15rem;gap:.85rem}
+  .contact-side .row{gap:.85rem;padding:.9rem 0}
+  .contact-side .row .ic{width:40px;height:40px;border-radius:11px}
+
+  .modal{padding:1.7rem 1.35rem;border-radius:20px;max-height:86svh}
+  .modal-back{padding:1rem}
+
+  footer{padding:2.2rem 0}
+
+  /* keep the two fixed buttons from colliding with each other */
+  #toTop{right:1.1rem;bottom:1.1rem;width:44px;height:44px;border-radius:12px}
+  #toTop svg{width:20px;height:20px}
+  #toast-wrap{bottom:1.2rem;width:min(100% - 2rem,26rem)}
+  .toast{width:100%;justify-content:center}
+}
+
+/* ---------- <=520px : small phones ---------- */
 @media (max-width:520px){
-  .hero-cta{flex-direction:column;align-items:stretch}
-  .btn{justify-content:center}
+  :root{--gutter:2.2rem}
+
+  .hero-cta{flex-direction:column;align-items:stretch;gap:.7rem}
+  .btn{justify-content:center;width:100%}
+
+  .hero h1{font-size:clamp(2.35rem,11vw,3rem)}
+  .socials{gap:.6rem}
+  .socials a{width:40px;height:40px}
+
+  .stat-grid{gap:.75rem}
+  .filters{gap:.45rem;margin:1.6rem 0}
+  .filter{padding:.45rem .85rem;font-size:.8rem}
+
+  .chips{gap:.45rem}
+  #skill-sphere{height:270px}
+
+  .timeline{padding-left:1.35rem}
+  .card-links{gap:.85rem;font-size:.78rem}
 }
+
+/* ---------- <=400px : narrow (iPhone SE / older Android) ---------- */
+@media (max-width:400px){
+  :root{--gutter:1.9rem}
+
+  .hero h1{font-size:2.2rem}
+  .hero .role-line{font-size:.9rem}
+  .stat-grid{grid-template-columns:1fr}      /* 2 cols were too cramped */
+  .card{padding:1.15rem}
+  .ide-body{font-size:.67rem;padding:.85rem .85rem 1rem}
+  #skill-sphere{height:250px}
+  .logo{font-size:.98rem}
+}
+
+/* ---------- short landscape phones ---------- */
+@media (max-height:520px) and (orientation:landscape){
+  #hero{min-height:auto;padding-top:calc(68px + 1.5rem);padding-bottom:2.5rem}
+  .scroll-cue{display:none}
+}
+
+/* respect notches / rounded corners */
+@supports(padding:max(0px)){
+  #toTop{right:max(1.1rem,env(safe-area-inset-right));bottom:max(1.1rem,env(safe-area-inset-bottom))}
+}
+
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}

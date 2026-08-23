@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Syne:wght@700;800&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -72,6 +72,84 @@
       <!-- marine snow: moved out of #hero so the drift carries the whole page,
            not just the first screen -->
       <canvas id="bg-canvas"></canvas>
+
+      <!-- Creature silhouettes, defined once and stamped with <use>. -->
+      <svg class="sea-defs" aria-hidden="true" focusable="false">
+        <defs>
+          <symbol id="fish-a" viewBox="0 0 48 24">
+            <path d="M7 12 0 5.5 2.6 12 0 18.5Z" />
+            <path d="M7 12c5.4-7.4 24-8.6 35 0-11 8.6-29.6 7.4-35 0Z" />
+            <path d="M21 15.4 27 21 17.6 19.4Z" />
+            <circle cx="36.5" cy="10.4" r="1.15" class="eye" />
+          </symbol>
+          <symbol id="fish-b" viewBox="0 0 56 20">
+            <path d="M9 10 0 3 3 10 0 17Z" />
+            <path d="M9 10c8-6.6 30-7.6 42 0-12 7.6-34 6.6-42 0Z" />
+            <path d="M23 12.6 29 17.6 19.6 16.4Z" />
+            <circle cx="45" cy="8.8" r="1" class="eye" />
+          </symbol>
+          <symbol id="jelly" viewBox="0 0 40 66">
+            <path d="M3.5 22C3.5 8.8 14 3 20 3s16.5 5.8 16.5 19c0 4.6-7.4 6.6-16.5 6.6S3.5 26.6 3.5 22Z" />
+            <g class="tent" fill="none" stroke-width="1.5" stroke-linecap="round">
+              <path d="M9 27c-2.4 11 2.6 19-.6 33" />
+              <path d="M15.2 28.4c-1.4 12 2.8 20-.4 35" />
+              <path d="M24.8 28.4c1.4 12-2.8 20 .4 35" />
+              <path d="M31 27c2.4 11-2.6 19 .6 33" />
+            </g>
+          </symbol>
+          <symbol id="whale" viewBox="0 0 210 84">
+            <path d="M4 42C20 20 62 8 108 12c33 3 61 15 78 11-7 9-9 17-6 27-17-5-33-3-51 4-29 11-70 12-101-4-9-4-18-6-24-8Z" />
+            <path d="M176 20c9-11 22-15 30-13-5 9-5 20 0 29-11 0-24-7-30-16Z" />
+            <path d="M62 52c8 10 22 15 34 15-10 5-27 3-38-6Z" />
+          </symbol>
+          <symbol id="lantern" viewBox="0 0 52 26">
+            <path d="M11 14 2 8.5 4.6 14 2 19.5Z" />
+            <path d="M11 14c5-6.6 21-7.6 30 0-9 7.6-25 6.6-30 0Z" />
+            <path d="M34 9.5c2.5-5.5 7-7 10-5.6" fill="none" stroke-width="1.4" stroke-linecap="round" />
+          </symbol>
+        </defs>
+      </svg>
+
+      <!-- SUNLIGHT ZONE: a school near the surface, plus a couple of strays -->
+      <span class="school z-sun" style="--y: 22vh; --d: 46s">
+        <i style="--ox: 0px;   --oy: 0px;  --s: 1"    ><svg viewBox="0 0 48 24"><use href="#fish-a" /></svg></i>
+        <i style="--ox: 42px;  --oy: 16px; --s: .82"  ><svg viewBox="0 0 48 24"><use href="#fish-a" /></svg></i>
+        <i style="--ox: 34px;  --oy: -20px;--s: .9"   ><svg viewBox="0 0 48 24"><use href="#fish-a" /></svg></i>
+        <i style="--ox: 78px;  --oy: -4px; --s: .7"   ><svg viewBox="0 0 48 24"><use href="#fish-a" /></svg></i>
+        <i style="--ox: 70px;  --oy: 32px; --s: .76"  ><svg viewBox="0 0 48 24"><use href="#fish-a" /></svg></i>
+        <i style="--ox: 112px; --oy: 14px; --s: .64"  ><svg viewBox="0 0 48 24"><use href="#fish-a" /></svg></i>
+      </span>
+      <span class="fish z-sun ltr" style="--y: 58vh; --s: 1.5; --d: 34s; --dl: -8s"><svg viewBox="0 0 56 20"><use href="#fish-b" /></svg></span>
+      <span class="fish z-sun" style="--y: 74vh; --s: .9; --d: 27s; --dl: -19s"><svg viewBox="0 0 48 24"><use href="#fish-a" /></svg></span>
+
+      <!-- TWILIGHT: jellyfish, drifting rather than swimming -->
+      <span class="jelly z-twi" style="--x: 14vw; --s: 1.1; --d: 26s; --dl: -3s"><svg viewBox="0 0 40 66"><use href="#jelly" /></svg></span>
+      <span class="jelly z-twi" style="--x: 76vw; --s: .78; --d: 33s; --dl: -14s"><svg viewBox="0 0 40 66"><use href="#jelly" /></svg></span>
+      <span class="fish z-twi ltr" style="--y: 34vh; --s: 1.1; --d: 41s; --dl: -25s"><svg viewBox="0 0 56 20"><use href="#fish-b" /></svg></span>
+
+      <!-- MIDNIGHT: something very large passes, slowly -->
+      <span class="whale z-deep" style="--y: 46vh; --s: 1; --d: 74s"><svg viewBox="0 0 210 84"><use href="#whale" /></svg></span>
+
+      <!-- ABYSS / HADAL: lanternfish, only the lure is really visible -->
+      <span class="lantern z-abyss" style="--y: 30vh; --s: 1; --d: 38s; --dl: -6s"><svg viewBox="0 0 52 26"><use href="#lantern" /></svg><b class="lure"></b></span>
+      <span class="lantern z-abyss ltr" style="--y: 68vh; --s: .8; --d: 45s; --dl: -22s"><svg viewBox="0 0 52 26"><use href="#lantern" /></svg><b class="lure"></b></span>
+
+      <!-- Bubbles rise the whole way up, at every depth. -->
+      <span class="bubbles">
+        <i style="--bx: 6%;  --bs: 7px;  --bd: 13s; --bl: -1s;  --bw: 16px"></i>
+        <i style="--bx: 13%; --bs: 4px;  --bd: 17s; --bl: -6s;  --bw: -12px"></i>
+        <i style="--bx: 21%; --bs: 10px; --bd: 11s; --bl: -9s;  --bw: 22px"></i>
+        <i style="--bx: 28%; --bs: 5px;  --bd: 19s; --bl: -3s;  --bw: -18px"></i>
+        <i style="--bx: 36%; --bs: 8px;  --bd: 15s; --bl: -12s; --bw: 14px"></i>
+        <i style="--bx: 44%; --bs: 3px;  --bd: 21s; --bl: -7s;  --bw: -9px"></i>
+        <i style="--bx: 51%; --bs: 11px; --bd: 12s; --bl: -16s; --bw: 26px"></i>
+        <i style="--bx: 58%; --bs: 6px;  --bd: 16s; --bl: -2s;  --bw: -20px"></i>
+        <i style="--bx: 66%; --bs: 4px;  --bd: 18s; --bl: -11s; --bw: 12px"></i>
+        <i style="--bx: 73%; --bs: 9px;  --bd: 14s; --bl: -5s;  --bw: -24px"></i>
+        <i style="--bx: 81%; --bs: 5px;  --bd: 20s; --bl: -15s; --bw: 18px"></i>
+        <i style="--bx: 88%; --bs: 7px;  --bd: 13s; --bl: -8s;  --bw: -14px"></i>
+        <i style="--bx: 94%; --bs: 3px;  --bd: 22s; --bl: -18s; --bw: 10px"></i>
+      </span>
     </div>
 
     <!-- Depth gauge. Reports real scroll progress in metres, and names the
@@ -756,15 +834,86 @@
       </div>
     </section>
 
-    <footer>
-      <div class="wrap">
-        <a href="#hero" class="logo" data-cursor
-          ><span class="dot"></span>ajinkaya<b>.dev</b></a
-        >
-        <p>&copy; 2026 Ajinkaya Pratap Bhosale &mdash; full stack Java developer</p>
-        <p class="made">
-          Hand-coded from scratch. No frameworks, no templates, no page builder.
-        </p>
+    <!-- The footer is the seafloor: the page is a dive, so this is where it
+         bottoms out. Hence the sediment, the kelp, and the way back up. -->
+    <footer id="footer">
+      <div class="floor" aria-hidden="true">
+        <span class="kelp" style="--kx: 6%;  --kh: 132px; --kd: 7s;   --kdl: -1s"></span>
+        <span class="kelp" style="--kx: 11%; --kh: 88px;  --kd: 5.6s; --kdl: -3s"></span>
+        <span class="kelp" style="--kx: 78%; --kh: 108px; --kd: 6.4s; --kdl: -2s"></span>
+        <span class="kelp" style="--kx: 84%; --kh: 150px; --kd: 8s;   --kdl: -5s"></span>
+        <span class="kelp" style="--kx: 91%; --kh: 74px;  --kd: 5s;   --kdl: -4s"></span>
+        <svg class="floor-svg" viewBox="0 0 1440 170" preserveAspectRatio="none" aria-hidden="true">
+          <path class="dune far" d="M0 96c150-34 268 6 402 18s224-30 356-24 226 44 358 26 196-38 324-46v170H0Z" />
+          <path class="dune near" d="M0 130c168-26 260 14 396 22s244-26 380-18 218 34 340 20 176-26 324-32v148H0Z" />
+        </svg>
+      </div>
+
+      <div class="wrap f-grid">
+        <div class="f-brand reveal">
+          <a href="#hero" class="logo" data-cursor aria-label="Back to top"
+            ><span class="dot"></span><span class="logo-txt">ajinkaya<b>.dev</b></span></a
+          >
+          <p class="f-line">
+            Final-year computer science student, building the whole stack in Java — and
+            looking for the first team to build it with.
+          </p>
+          <a class="f-mail" href="mailto:ajinkaya01@gmail.com" data-cursor
+            >ajinkaya01@gmail.com</a
+          >
+        </div>
+
+        <nav class="f-col reveal d1" aria-label="Sections">
+          <h4 class="side-cap">Sections</h4>
+          <ul>
+            <li><a href="#about" data-cursor>About</a></li>
+            <li><a href="#skills" data-cursor>Skills</a></li>
+            <li><a href="#projects" data-cursor>Work</a></li>
+            <li><a href="#certs" data-cursor>Certifications</a></li>
+            <li><a href="#contact" data-cursor>Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="f-col reveal d2">
+          <h4 class="side-cap">Elsewhere</h4>
+          <ul>
+            <li>
+              <a href="https://github.com/Ajinkya-X" target="_blank" rel="noopener" data-cursor
+                >GitHub</a
+              >
+            </li>
+            <li>
+              <a href="https://linkedin.com/in/ajinkaya" target="_blank" rel="noopener" data-cursor
+                >LinkedIn</a
+              >
+            </li>
+            <li>
+              <a href="assets/Ajinkaya_Pratap_Bhosale_Resume.pdf" download data-cursor>Résumé</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="f-col f-status reveal d3">
+          <h4 class="side-cap">Status</h4>
+          <p class="f-avail"><span class="live"></span> Open to 2026 roles</p>
+          <p class="f-reached">
+            You reached <b>6 000&thinsp;m</b><span>Hadal zone &mdash; the bottom</span>
+          </p>
+          <button class="f-up" id="fSurface" data-cursor>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Return to the surface
+          </button>
+        </div>
+      </div>
+
+      <!-- oversized wordmark, half-buried in the sediment -->
+      <div class="f-mark" aria-hidden="true"><span>AJINKAYA</span></div>
+
+      <div class="wrap f-base">
+        <span>&copy; 2026 Ajinkaya Pratap Bhosale</span>
+        <span class="f-made">Hand-coded from scratch. No frameworks, no templates, no page builder.</span>
       </div>
     </footer>
 

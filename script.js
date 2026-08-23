@@ -101,8 +101,14 @@
     if(sounderRead) sounderRead.textContent=txt;
     let z=ZONES[ZONES.length-1][1];
     for(const [lim,name] of ZONES){ if(p<lim){ z=name; break; } }
-    if(z!==zoneNow && drZone){ zoneNow=z; drZone.textContent=z; drZone.classList.remove("flip");
-      void drZone.offsetWidth; drZone.classList.add("flip"); }
+    if(z!==zoneNow){
+      zoneNow=z;
+      // the wildlife in .water is gated on this attribute, so the creatures
+      // and the gauge can never disagree about which zone you are in
+      root.dataset.zone = z.toLowerCase();
+      if(drZone){ drZone.textContent=z; drZone.classList.remove("flip");
+        void drZone.offsetWidth; drZone.classList.add("flip"); }
+    }
   }
   let lastY=scrollY;
   function onScroll(){
@@ -137,7 +143,10 @@
     document.body.style.overflow = open ? "hidden" : "";
     if(open) nav && nav.classList.remove("nav-hidden");
   });
-  toTop && toTop.addEventListener("click", () => scrollTo({top:0, behavior: reduce?"auto":"smooth"}));
+  const surface = () => scrollTo({top:0, behavior: reduce?"auto":"smooth"});
+  toTop && toTop.addEventListener("click", surface);
+  const fSurface=$("#fSurface");
+  fSurface && fSurface.addEventListener("click", surface);
 
   $$('a[href^="#"]').forEach(a => a.addEventListener("click", e => {
     const id=a.getAttribute("href");

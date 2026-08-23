@@ -8,9 +8,13 @@
 :root{
   color-scheme: dark;
 
-  /* --- Primitive: the water column, surface -> abyss --- */
-  --abyss-950:#04080F; --abyss-900:#060B14; --abyss-850:#0A1220;
-  --abyss-800:#0C1626; --abyss-750:#102033; --abyss-700:#16293E;
+  /* --- Primitive: the water column, sunlit surface -> abyss ---
+     Every stop is blue. The surface is a real sky-blue-through-water and
+     the floor is blue-black, never neutral grey. --bg sits at the top of
+     the ramp; .w-deep pulls the page toward the bottom of it as you dive. */
+  --abyss-950:#04121F; --abyss-900:#061C2E; --abyss-850:#082639;
+  --abyss-800:#0A3252; --abyss-750:#0E4A73; --abyss-700:#14608F;
+  --abyss-600:#1E7AAE; --abyss-500:#2E96C9;
 
   /* bioluminescence — the only light this far down */
   --biolume-300:#8DF7EC; --biolume-400:#38E1D4;
@@ -20,14 +24,15 @@
   --sonar-300:#9DBBFB; --sonar-400:#6B9AF7; --sonar-500:#4C7DF0;
 
   /* siphonophore violet — used sparingly, deepest accent */
-  --nautilus-400:#A98BFF; --nautilus-500:#8A66F5;
+  --nautilus-300:#C4B0FF; --nautilus-400:#A98BFF; --nautilus-500:#8A66F5;
 
-  --foam:#E6F1F7; --mist:#93A9BC; --mist-dim:#5E7386;
-  --danger:#FF6B7D; --ok:#38E1D4;
+  --foam:#E6F1F7; --mist:#B3C8D8; --mist-dim:#A0B7C9;
+  /* checked against --bg #0E4A73: foam 8.1:1, mist 5.4:1, mist-dim 4.5:1 */
+  --danger:#FFA0AC; --ok:#38E1D4;
 
   /* --- Semantic (deep water) --- */
-  --bg:var(--abyss-900);
-  --bg-2:var(--abyss-950);
+  --bg:var(--abyss-750);          /* sky-blue water at the surface */
+  --bg-2:var(--abyss-800);
   /* surfaces are tinted with water, not neutral white */
   --surface:rgba(140,200,230,.035);
   --surface-2:rgba(140,200,230,.07);
@@ -38,21 +43,21 @@
   --text-dim:var(--mist-dim);
   --primary:var(--biolume-400);
   --primary-soft:var(--biolume-300);
-  --secondary:var(--sonar-400);
-  --tertiary:var(--nautilus-500);
+  --secondary:var(--sonar-300);
+  --tertiary:var(--nautilus-300);
   --ring:rgba(56,225,212,.55);
-  --shadow-lg:0 30px 80px -20px rgba(0,0,0,.75);
+  --shadow-lg:0 30px 80px -20px rgba(2,14,26,.7);
   --glow-primary:0 0 60px -8px rgba(56,225,212,.45);
   --glow-secondary:0 0 60px -8px rgba(76,125,240,.4);
   --grad-brand:linear-gradient(115deg,var(--biolume-400),var(--sonar-400) 62%,var(--nautilus-500));
   --grad-text:linear-gradient(115deg,#CFFFF8,var(--biolume-400) 38%,var(--sonar-400) 88%);
 
   /* --- Component --- */
-  --nav-bg:rgba(6,11,20,.6); --nav-solid:rgba(8,14,24,.97);
+  --nav-bg:rgba(8,44,72,.55); --nav-solid:rgba(9,48,78,.97);
   --card-bg:linear-gradient(160deg,rgba(140,200,230,.055),rgba(140,200,230,.015));
   --card-border:var(--border);
   --chip-bg:rgba(140,200,230,.045);
-  --panel-bg:rgba(8,16,28,.84);
+  --panel-bg:rgba(6,36,60,.82);
   --panel-head:rgba(140,200,230,.05);
   --btn-primary-bg:var(--grad-brand);
   --btn-primary-fg:#032027;
@@ -66,6 +71,9 @@
   --maxw:1180px; --gutter:2.8rem;
   --radius:18px; --radius-sm:11px; --radius-lg:26px;
   --font-display:"Sora",system-ui,sans-serif;
+  /* the wordmark gets its own face — Syne's wide, slightly odd caps give the
+     name a signature Sora can't, and it is used nowhere else on the site */
+  --font-mark:"Syne","Sora",system-ui,sans-serif;
   --font-body:"Space Grotesk",system-ui,sans-serif;
   /* utility face for instrument labels — same family, set uppercase and
      tracked out wide via .label / .eyebrow rather than a separate font */
@@ -245,7 +253,7 @@ nav.scrolled .nav-shell{
 
 /* --- logo: reads as a package path --- */
 .logo{
-  font-family:var(--font-display);font-weight:700;font-size:1.02rem;letter-spacing:-.03em;
+  font-family:var(--font-mark);font-weight:800;font-size:1.06rem;letter-spacing:-.01em;
   display:flex;align-items:center;gap:.5rem;position:relative;z-index:3;flex:none;
 }
 .logo b{color:var(--primary)}
@@ -353,7 +361,7 @@ nav.scrolled .nav-shell{
   padding:.4rem .8rem;border:1px solid var(--border-strong);border-radius:100px;color:var(--text-muted);
   background:var(--surface);margin-bottom:1.5rem;
 }
-.badge .live{width:8px;height:8px;border-radius:50%;background:var(--secondary);box-shadow:0 0 10px var(--secondary);animation:pulse 1.6s infinite}
+.live{width:8px;height:8px;border-radius:50%;background:var(--secondary);box-shadow:0 0 10px var(--secondary);animation:pulse 1.6s infinite}
 .hero h1{font-family:var(--font-display);font-weight:800;font-size:var(--step-5);line-height:.98;letter-spacing:-.03em;margin-bottom:.4rem}
 .hero .role-line{
   font-family:var(--font-body);font-size:var(--step-1);color:var(--text-muted);
@@ -453,10 +461,10 @@ nav.scrolled .nav-shell{
   overflow-wrap:anywhere;
 }
 /* each layer sits a little deeper in the water than the one above it */
-.layer:nth-child(2){background:rgba(4,8,15,.14)}
-.layer:nth-child(3){background:rgba(4,8,15,.28)}
-.layer:nth-child(4){background:rgba(4,8,15,.42)}
-.layer:nth-child(5){background:rgba(4,8,15,.56)}
+.layer:nth-child(2){background:rgba(4,18,31,.2)}
+.layer:nth-child(3){background:rgba(4,18,31,.36)}
+.layer:nth-child(4){background:rgba(4,18,31,.52)}
+.layer:nth-child(5){background:rgba(4,18,31,.66)}
 [data-theme=light] .layer:nth-child(2){background:rgba(8,34,46,.035)}
 [data-theme=light] .layer:nth-child(3){background:rgba(8,34,46,.07)}
 [data-theme=light] .layer:nth-child(4){background:rgba(8,34,46,.105)}
@@ -597,11 +605,157 @@ nav.scrolled .nav-shell{
 .copy-btn{margin-left:auto;font-family:var(--font-label);font-size:.72rem;color:var(--secondary);border:1px solid var(--border);padding:.35rem .6rem;border-radius:8px;transition:.2s}
 .copy-btn:hover{border-color:var(--secondary);background:var(--surface-2)}
 
-/* ============================================================ FOOTER */
-footer{border-top:1px solid var(--border);padding:2.5rem 0;text-align:center}
-footer .logo{justify-content:center;margin-bottom:1rem}
-footer p{color:var(--text-dim);font-size:.85rem;font-family:var(--font-label)}
-footer .made{margin-top:.4rem;color:var(--text-muted)}
+/* ============================================================
+   FOOTER  —  the seafloor
+   The page is a dive, so the footer is where it bottoms out:
+   sediment, kelp, the name half-buried in it, and the way back up.
+   ============================================================ */
+footer{
+  position:relative;
+  padding:clamp(9rem,16vw,13rem) 0 0;
+  margin-top:4rem;
+  overflow:hidden;
+  background:linear-gradient(to bottom,transparent,rgba(4,18,31,.55) 45%,rgba(4,18,31,.9));
+  isolation:isolate;
+}
+[data-theme=light] footer{background:linear-gradient(to bottom,transparent,rgba(6,50,75,.07) 45%,rgba(6,50,75,.13))}
+
+/* --- sediment + kelp --- */
+.floor{position:absolute;left:0;right:0;bottom:0;top:0;z-index:-1;pointer-events:none}
+.floor-svg{position:absolute;left:0;right:0;bottom:0;width:100%;height:clamp(120px,17vw,190px)}
+.dune{fill:var(--abyss-850)}
+.dune.near{fill:var(--abyss-900)}
+.dune.far{fill:var(--abyss-800);opacity:.75}
+[data-theme=light] .dune{fill:rgba(6,50,75,.13)}
+[data-theme=light] .dune.far{fill:rgba(6,50,75,.07)}
+
+.kelp{
+  position:absolute;bottom:0;left:var(--kx,10%);
+  width:14px;height:var(--kh,110px);
+  /* tapered blade: wide at the base, a point at the tip */
+  clip-path:polygon(28% 100%,72% 100%,58% 26%,50% 0,42% 26%);
+  background:linear-gradient(to top,var(--biolume-600),rgba(11,163,150,.15));
+  opacity:.5;transform-origin:50% 100%;
+  animation:kelpSway var(--kd,6s) ease-in-out var(--kdl,0s) infinite alternate;
+}
+@keyframes kelpSway{
+  from{transform:rotate(-7deg) skewX(4deg)}
+  to{transform:rotate(7deg) skewX(-4deg)}
+}
+
+/* --- the columns --- */
+.f-grid{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1.7fr .8fr .8fr 1.1fr;
+  gap:clamp(1.8rem,4vw,3.4rem);align-items:start;
+}
+.f-grid>*{min-width:0}
+footer .logo{font-size:1.15rem;margin-bottom:1rem}
+.f-line{color:var(--text-muted);font-size:.95rem;max-width:34ch;line-height:1.6}
+.f-mail{
+  display:inline-block;margin-top:1.1rem;font-family:var(--font-label);
+  font-size:.95rem;font-weight:600;color:var(--primary);
+  border-bottom:1px solid transparent;transition:border-color .3s;
+}
+.f-mail:hover{border-bottom-color:var(--primary)}
+
+.f-col .side-cap{margin-top:0}
+.f-status{display:grid;gap:.95rem;justify-items:start}
+.f-col ul{display:grid;gap:.15rem}
+.f-col li a{
+  position:relative;display:inline-block;padding:.3rem 0;
+  color:var(--text-muted);font-size:.95rem;transition:color .3s,padding-left .35s var(--ease-water);
+}
+/* a small current pushes the label sideways and a marker surfaces behind it */
+.f-col li a::before{
+  content:"";position:absolute;left:0;top:50%;width:0;height:1px;
+  background:var(--primary);transition:width .35s var(--ease-water);
+}
+.f-col li a:hover{color:var(--text);padding-left:1.05rem}
+.f-col li a:hover::before{width:.75rem}
+
+.f-avail{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:var(--font-label);font-size:.88rem;font-weight:600;color:var(--text);
+}
+.f-reached{
+  margin-top:1rem;font-family:var(--font-label);font-size:.82rem;color:var(--text-dim);
+  line-height:1.5;
+}
+.f-reached b{
+  display:block;font-family:var(--font-display);font-size:1.5rem;font-weight:700;
+  font-variant-numeric:tabular-nums;color:var(--primary);letter-spacing:-.02em;
+}
+.f-reached span{display:block;margin-top:.15rem}
+
+.f-up{
+  margin-top:1.4rem;display:inline-flex;align-items:center;gap:.55rem;
+  padding:.72rem 1.15rem;border-radius:100px;
+  border:1px solid var(--border-strong);background:var(--surface);
+  font-family:var(--font-label);font-size:.72rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--text);
+  transition:border-color .3s,background .3s,color .3s;
+}
+.f-up svg{width:15px;height:15px;animation:upFloat 2.4s ease-in-out infinite}
+@keyframes upFloat{0%,100%{transform:translateY(2px)}50%{transform:translateY(-3px)}}
+.f-up:hover{border-color:var(--primary);color:var(--primary);background:rgba(56,225,212,.08)}
+
+/* --- the oversized wordmark, half-buried in the sediment --- */
+.f-mark{
+  position:relative;z-index:0;margin-top:clamp(2.5rem,6vw,5rem);
+  padding-inline:calc(var(--gutter) / 2);
+  /* the bottom of the letters sits below the sediment line */
+  height:clamp(3.4rem,11.5vw,9rem);overflow:hidden;
+}
+.f-mark span{
+  display:block;text-align:center;
+  font-family:var(--font-mark);font-weight:800;
+  font-size:clamp(3.6rem,15.5vw,13rem);line-height:1;letter-spacing:-.03em;
+  background:linear-gradient(to bottom,var(--abyss-600),rgba(20,96,143,.15) 78%,transparent);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  /* a caustic slides across the letters like light on the seabed */
+  position:relative;
+}
+.f-mark::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 38%,rgba(141,247,236,.22) 50%,transparent 62%);
+  mix-blend-mode:screen;
+  translate:-60% 0;
+  animation:markCaustic 9s cubic-bezier(.5,0,.5,1) infinite;
+}
+@keyframes markCaustic{0%{translate:-70% 0}60%,100%{translate:70% 0}}
+[data-theme=light] .f-mark span{background:linear-gradient(to bottom,rgba(6,50,75,.32),rgba(6,50,75,.06) 78%,transparent);-webkit-background-clip:text;background-clip:text}
+
+/* --- the last line --- */
+.f-base{
+  position:relative;z-index:1;
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem 1.5rem;
+  padding:1.4rem 0 1.6rem;margin-top:.5rem;
+  border-top:1px solid var(--border);
+  font-family:var(--font-label);font-size:.76rem;color:var(--text-dim);
+}
+.f-made{color:var(--text-muted)}
+
+@media (max-width:900px){
+  .f-grid{grid-template-columns:1fr 1fr;gap:2.2rem}
+  .f-brand{grid-column:1 / -1}
+  footer{padding-top:clamp(7rem,20vw,10rem)}
+}
+@media (max-width:520px){
+  .f-grid{grid-template-columns:1fr}
+  .f-base{flex-direction:column;text-align:left}
+  .kelp{width:11px}
+  /* the wordmark is the one place the footer is allowed to be loud, but at
+     this width it needs to give up some height */
+  /* 8 wide Syne caps run past a phone's gutter at the desktop ratio, so the
+     mark scales with its box here and sits a little less buried */
+  .f-mark{height:clamp(2.6rem,13vw,4rem)}
+  .f-mark span{font-size:clamp(2.9rem,13.5vw,4.6rem)}
+}
+@media (prefers-reduced-motion:reduce){
+  .kelp,.f-up svg{animation:none!important}
+  .f-mark::after{display:none}
+}
 
 /* back to top + toast */
 #toTop{position:fixed;right:1.5rem;bottom:1.5rem;z-index:900;width:48px;height:48px;border-radius:14px;background:var(--grad-brand);color:var(--btn-primary-fg);display:grid;place-items:center;opacity:0;transform:translateY(20px) scale(.8);transition:.3s;box-shadow:var(--glow-primary)}
@@ -613,7 +767,7 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
 .toast svg{width:18px;height:18px;color:var(--secondary)}
 
 /* ============================================================ MODAL */
-.modal-back{position:fixed;inset:0;z-index:2000;background:rgba(5,3,12,.72);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:grid;place-items:center;padding:1.5rem;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.modal-back{position:fixed;inset:0;z-index:2000;background:rgba(3,20,36,.74);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:grid;place-items:center;padding:1.5rem;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
 .modal-back.open{opacity:1;visibility:visible}
 .modal{position:relative;background:var(--bg);border:1px solid var(--border-strong);border-radius:var(--radius-lg);max-width:560px;width:100%;padding:2.2rem;box-shadow:var(--shadow-lg);transform:translateY(24px) scale(.96);transition:transform .4s cubic-bezier(.2,.8,.2,1);max-height:88vh;overflow-y:auto}
 .modal-back.open .modal{transform:none}
@@ -684,6 +838,16 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
    writes from scroll position, so scrolling really is descending.
    ============================================================ */
 .water{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;contain:layout style}
+/* the sky seen through the surface: strongest at depth 0, gone in the dark */
+.water::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:78vh;
+  background:linear-gradient(to bottom,
+    rgba(90,190,235,.42),rgba(46,150,201,.24) 34%,rgba(30,122,174,.1) 62%,transparent);
+  opacity:calc(1 - var(--depth) * 1.25);
+}
+[data-theme=light] .water::before{
+  background:linear-gradient(to bottom,rgba(140,215,245,.6),rgba(190,230,246,.3) 45%,transparent);
+}
 .water>span{position:absolute;inset:0;display:block}
 
 /* #bg-canvas (marine snow) now lives inside .water, so it drifts
@@ -728,10 +892,144 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
 /* the dark: crushes in from the bottom as you go down */
 .w-deep{
   opacity:var(--depth);
-  background:linear-gradient(to bottom,transparent 8%,rgba(4,8,15,.55) 62%,rgba(4,8,15,.9));
+  background:linear-gradient(to bottom,transparent 6%,rgba(6,28,46,.6) 48%,rgba(4,18,31,.94));
 }
 [data-theme=light] .w-deep{background:linear-gradient(to bottom,transparent 12%,rgba(6,50,75,.1) 70%,rgba(6,50,75,.2))}
 [data-theme=light] .w-rays{opacity:calc(.7 - var(--depth) * .7)}
+
+/* ============================================================
+   SEA LIFE  —  living creatures in the water column
+   Which creatures you see is driven by the zone JS already
+   computes (html[data-zone]), so the animals genuinely change
+   as you descend: schools of fish in the sunlight, jellyfish in
+   the twilight, something very large in the midnight, and in the
+   abyss only a lanternfish's lure.
+   ============================================================ */
+.sea-defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* every creature shares the same shell: absolutely placed inside .water,
+   travelling horizontally via `translate` so `transform` stays free for
+   the facing direction and scale */
+.school,.fish,.jelly,.whale,.lantern{
+  position:absolute;left:0;top:var(--y,50vh);
+  display:block;pointer-events:none;
+  opacity:0;visibility:hidden;
+  transition:opacity 1.6s ease,visibility 1.6s;
+}
+.fish svg,.school i svg,.lantern svg{display:block;width:100%;height:100%}
+
+/* --- facing: default swims right-to-left; .ltr flips and reverses --- */
+.school,.fish,.lantern{animation:swimRTL var(--d,40s) linear var(--dl,0s) infinite}
+.ltr{animation-name:swimLTR;transform:scaleX(-1)}
+@keyframes swimRTL{from{translate:106vw 0}to{translate:-24vw 0}}
+@keyframes swimLTR{from{translate:-24vw 0}to{translate:106vw 0}}
+
+/* --- solo fish --- */
+.fish{width:calc(56px * var(--s,1));height:calc(24px * var(--s,1));color:var(--foam)}
+.fish svg{fill:currentColor}
+.fish .eye{fill:var(--abyss-950)}
+/* the body itself undulates; horizontal travel lives on the parent so the
+   two never fight over one property */
+.fish svg,.school i svg{animation:tailBeat 1.5s ease-in-out infinite}
+@keyframes tailBeat{
+  0%,100%{transform:rotate(-3.5deg) translateY(-2px)}
+  50%{transform:rotate(3.5deg) translateY(2px)}
+}
+
+/* --- school: one shoal that moves as a body, each fish offset inside it --- */
+.school{width:170px;height:70px;color:var(--foam)}
+.school i{
+  position:absolute;left:var(--ox,0);top:35px;margin-top:var(--oy,0px);
+  width:calc(30px * var(--s,1));height:calc(15px * var(--s,1));
+}
+.school i svg{fill:currentColor}
+.school i:nth-child(2n) svg{animation-duration:1.25s}
+.school i:nth-child(3n) svg{animation-duration:1.75s;animation-delay:-.4s}
+.school i:nth-child(4n) svg{animation-delay:-.7s}
+
+/* --- jellyfish: they do not swim across, they hover and pulse --- */
+.jelly{
+  left:var(--x,50%);top:auto;bottom:-14vh;
+  width:calc(40px * var(--s,1));height:calc(66px * var(--s,1));
+  color:var(--biolume-300);
+  animation:jellyRise var(--d,28s) linear var(--dl,0s) infinite;
+}
+.jelly svg{display:block;width:100%;height:100%;fill:currentColor;
+  filter:drop-shadow(0 0 10px rgba(141,247,236,.55));
+  animation:jellyPulse 3.4s ease-in-out infinite}
+.jelly .tent{stroke:currentColor;fill:none;opacity:.75}
+@keyframes jellyRise{from{translate:0 0}to{translate:6vw -128vh}}
+@keyframes jellyPulse{
+  0%,100%{transform:scale(1,1)}
+  38%{transform:scale(.84,1.16)}
+  62%{transform:scale(1.1,.9)}
+}
+
+/* --- the whale: very large, very slow, almost only a silhouette --- */
+.whale{
+  width:calc(min(46vw,430px) * var(--s,1));height:auto;
+  color:var(--abyss-600);
+  animation:swimRTL var(--d,74s) linear var(--dl,0s) infinite;
+}
+.whale svg{display:block;width:100%;height:auto;fill:currentColor;
+  filter:blur(1.5px);
+  animation:whaleGlide 11s ease-in-out infinite}
+@keyframes whaleGlide{
+  0%,100%{transform:translateY(-14px) rotate(-1.4deg)}
+  50%{transform:translateY(14px) rotate(1.4deg)}
+}
+
+/* --- lanternfish: the body is nearly invisible, the lure is not --- */
+.lantern{width:calc(52px * var(--s,1));height:calc(26px * var(--s,1));color:var(--abyss-700)}
+.lantern svg{fill:currentColor;stroke:var(--abyss-600)}
+.lantern .lure{
+  position:absolute;right:12%;top:6%;width:6px;height:6px;border-radius:50%;
+  background:var(--biolume-300);
+  box-shadow:0 0 6px 2px var(--biolume-400),0 0 22px 8px rgba(56,225,212,.45);
+  animation:lureFlicker 2.8s ease-in-out infinite;
+}
+@keyframes lureFlicker{0%,100%{opacity:1;transform:scale(1)}44%{opacity:.35;transform:scale(.78)}}
+
+/* --- zone gating: reuses html[data-zone], written by the same code that
+       drives the depth gauge, so the wildlife and the readout never disagree --- */
+html[data-zone=sunlight] .z-sun{opacity:.8;visibility:visible}
+html[data-zone=twilight] .z-sun{opacity:.32;visibility:visible}
+html[data-zone=twilight] .z-twi{opacity:.85;visibility:visible}
+html[data-zone=midnight] .z-twi{opacity:.5;visibility:visible}
+html[data-zone=midnight] .z-deep{opacity:.55;visibility:visible}
+html[data-zone=abyss]    .z-deep{opacity:.28;visibility:visible}
+html[data-zone=abyss]    .z-abyss{opacity:.9;visibility:visible}
+html[data-zone=hadal]    .z-abyss{opacity:1;visibility:visible}
+/* before the first scroll event lands there is no data-zone yet */
+html:not([data-zone]) .z-sun{opacity:.8;visibility:visible}
+
+[data-theme=light] .fish,[data-theme=light] .school{color:#0B3A5C}
+[data-theme=light] .whale{color:rgba(11,58,92,.4)}
+
+/* ============================================================
+   BUBBLES  —  rising at every depth
+   ============================================================ */
+.bubbles{position:absolute;inset:0;display:block;pointer-events:none}
+.bubbles i{
+  position:absolute;bottom:-6vh;left:var(--bx,50%);
+  width:var(--bs,6px);height:var(--bs,6px);border-radius:50%;
+  border:1px solid rgba(230,241,247,.4);
+  background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.75),rgba(255,255,255,.12) 46%,transparent 70%);
+  animation:bubbleUp var(--bd,16s) linear var(--bl,0s) infinite;
+}
+/* travel and wobble are separate properties, so they compose instead of
+   overwriting each other */
+@keyframes bubbleUp{
+  0%  {translate:0 0;            opacity:0}
+  8%  {                          opacity:.85}
+  50% {translate:var(--bw,14px) -55vh}
+  88% {                          opacity:.7}
+  100%{translate:0 -112vh;       opacity:0}
+}
+.bubbles i:nth-child(3n){animation-timing-function:ease-in}
+.bubbles i:nth-child(4n){border-color:rgba(141,247,236,.45)}
+[data-theme=light] .bubbles i{border-color:rgba(6,50,75,.3);
+  background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.9),rgba(255,255,255,.25) 46%,transparent 70%)}
 
 /* ============================================================
    DEPTH GAUGE  —  vertical rail, desktop only
@@ -837,7 +1135,7 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
 
 /* 3D skill sphere: tags read as biolume specks rather than solid pills */
 .s-tag{
-  background:rgba(8,16,28,.55);border-color:var(--border);
+  background:rgba(6,36,60,.55);border-color:var(--border);
   backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
   transition:color .3s,border-color .3s,box-shadow .3s;
 }
@@ -1016,7 +1314,9 @@ footer .made{margin-top:.4rem;color:var(--text-muted)}
   .modal{padding:1.7rem 1.35rem;border-radius:20px;max-height:86svh}
   .modal-back{padding:1rem}
 
-  footer{padding:2.2rem 0}
+  /* the footer now carries the seabed art, so it keeps its height here;
+     only the last line tightens up */
+  .f-base{padding:1.2rem 0 1.3rem}
 
   /* keep the two fixed buttons from colliding with each other */
   #toTop{right:1.1rem;bottom:1.1rem;width:44px;height:44px;border-radius:12px}
